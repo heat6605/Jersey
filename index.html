@@ -3,45 +3,190 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>Jersey 圖片選單 - Sprite Sheet</title>
+  <title>Jersey 五步驟選單 - Sprite 版本</title>
   <style>
     body { font-family: sans-serif; text-align: center; padding: 20px; }
+    section { display: none; margin-top: 20px; }
+    .active { display: block; }
+    .option-img {
+      width: 160px; margin: 10px; cursor: pointer;
+      border: 2px solid transparent; transition: border 0.3s;
+    }
+    .option-img:hover { border: 2px solid #007bff; }
     .sprite {
-      width: 160px; height: 106px;
-      margin: 8px;
       display: inline-block;
+      margin: 10px;
       background-repeat: no-repeat;
-      background-size: 3000px 2000px;
       border: 2px solid transparent;
       cursor: pointer;
     }
-    .sprite:hover {
-      border: 2px solid red;
+    .sprite:hover { border: 2px solid red; }
+    .grid { display: flex; flex-wrap: wrap; justify-content: center; }
+    #submit-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 6px;
+      font-size: 18px;
+      text-decoration: none;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <h2>Sprite Sheet 測試選單</h2>
-  <div id="container"></div>
+  <h2>Jersey 圖片選單</h2>
+
+  <!-- Step 1: 運動類型 -->
+  <section id="step1" class="active">
+    <h3>1. 選擇運動類型</h3>
+    <div class="grid">
+      <img src="images/basketball.jpg" class="option-img" onclick="selectSport('籃球')">
+      <img src="images/volleyball.jpg" class="option-img" onclick="selectSport('排球')">
+      <img src="images/badminton.jpg" class="option-img" onclick="selectSport('羽球')">
+    </div>
+  </section>
+
+  <!-- Step 2: 訂購品項 -->
+  <section id="step2">
+    <h3>2. 選擇訂購品項</h3>
+    <div class="grid" id="item-options"></div>
+  </section>
+
+  <!-- Step 3: 款式 -->
+  <section id="step3">
+    <h3>3. 選擇款式</h3>
+    <div class="grid" id="style-options"></div>
+  </section>
+
+  <!-- Step 4: 配色 -->
+  <section id="step4">
+    <h3>4. 選擇配色</h3>
+    <div class="grid" id="color-options"></div>
+    <button id="submit-btn" onclick="openForm()" disabled>前往填寫表單</button>
+  </section>
 
 <script>
-  const container = document.getElementById("container");
+let mapping = {};
+const selections = { sport: '', item: '', style: '', color: '' };
 
-  fetch("mapping.json")
-    .then(res => res.json())
-    .then(data => {
-      Object.entries(data).forEach(([filename, info]) => {
-        const div = document.createElement("div");
-        div.className = "sprite";
-        div.style.backgroundImage = `url(images/${info.sheet})`;
-        div.style.backgroundPosition = `-${info.x}px -${info.y}px`;
-        div.style.width = info.width / 2 + "px";
-        div.style.height = info.height / 2 + "px";
-        div.title = filename;
-        div.onclick = () => alert("你點了：" + filename);
-        container.appendChild(div);
-      });
-    });
+const styleColors = {
+  "S42":["SV","BK","PP","CB","DR","GL"],"S43":["BK","PP","DE","CR","AY","GL"],
+  "S44":["DNB","DNS","DNG","DNK"],"S31":["SB","BK","BS","CB","FP","FG","CR","BP","BL","LV","MB","EP","TH","PH","BR","MP","NY","GS","CL","LA","MT","MG","DL","MH"],
+  "S32":["BK","NW","AP","MG","WB","PW","CR","AW"],"S21":["GR","DB","DR","ZG","PP","IG","WB","AW"],
+  "S23":["WR","AW","NW","BK","PP","PW","CR","VG","GBL","GOY","EP","CB","LY","MG","MB","WB"],
+  "S24":["NW","BK","KB","PP","CY","BO","VG"],"S10":["BK","AW","WR","AG","BB","AY","LG"],
+  "S11":["AY","AW","BK","AG","WG","WR","BB"],"S12":["BK","CB","AW","LG","AY","AG","WR"],
+  "S13":["BK","AG","DT","SG","DB","WR","GG"],"S01":["BK","AG","BB","AY","LB","WG"],
+  "S03":["AW","BK","AG","NW","AY","AR","LB","WG"],"S07":["AW","BK","AG","BB","AY","AR","LB","WG"],
+  "S08":["GB","BK","DY","SB","GP","SR","BN"],"S09":["BK","AW","AG","BB","AY","AG","LB","WG"],
+  "V41":["WB","BK","MB","PP","LB","MG","PW","LV","GL","DR"],
+  "V42":["NB","WB","PW","PP","BO","BK"],"V43":["FG","BK","GB","MG","PB","AW"],
+  "V44":["AW","BK","GB","TB","QP","SV"],"V45":["LB","OR","GL","NW","PP","DR"],
+  "V46":["NB","QP","PP","MT","AW","RB"],"V31":["AW","EG","TCG","WBI","PB","QP"],
+  "V32":["QP","DW","UN","FG","KG","FP"],"V47":["TB","BW","OY","WR","LG"],
+  "V48":["BK","AW","YY","WR","TPB"],"V49":["BK","OY","WBI","WR","TCG"],
+  "B21":["NB","CB","PB","BO","BK"],"B11":["BK","KC","KB","WR","BO"],
+  "B12":["GB","BK","NTY","GA","JG"],"B13":["BK","GB","NTY","AW","GA"]
+};
+
+const sportData = {
+  "籃球": ["雙面球衣+單面球褲", "單面球衣*2+單面球褲", "單面球衣*2+單面球褲*2"],
+  "排球": ["排球上衣", "排球上衣+排球褲"],
+  "羽球": ["排球上衣", "排球上衣+排球褲"]
+};
+
+function showStep(id) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function selectSport(type) {
+  selections.sport = type;
+  const container = document.getElementById('item-options');
+  container.innerHTML = '';
+  sportData[type].forEach(item => {
+    const img = document.createElement('img');
+    img.src = `images/item.jpg`;
+    img.alt = item;
+    img.className = 'option-img';
+    img.onclick = () => selectItem(item);
+    container.appendChild(img);
+  });
+  showStep('step2');
+}
+
+function selectItem(item) {
+  selections.item = item;
+  const container = document.getElementById('style-options');
+  container.innerHTML = '';
+  Object.keys(styleColors).forEach(style => {
+    const img = document.createElement('div');
+    const fn = `${style.toLowerCase()}.jpg`;
+    if (mapping[fn]) {
+      const m = mapping[fn];
+      img.className = 'sprite';
+      img.style.width = m.width / 2 + 'px';
+      img.style.height = m.height / 2 + 'px';
+      img.style.backgroundImage = `url(images/${m.sheet})`;
+      img.style.backgroundPosition = `-${m.x}px -${m.y}px`;
+      img.onclick = () => selectStyle(style);
+      container.appendChild(img);
+    }
+  });
+  showStep('step3');
+}
+
+function selectStyle(style) {
+  selections.style = style;
+  const container = document.getElementById('color-options');
+  container.innerHTML = '';
+  const colors = styleColors[style] || [];
+  colors.forEach(k => {
+    const code = `${style}-${k}`;
+    const fn = code.toLowerCase() + '.jpg';
+    if (mapping[fn]) {
+      const m = mapping[fn];
+      const img = document.createElement('div');
+      img.className = 'sprite';
+      img.style.width = m.width / 2 + 'px';
+      img.style.height = m.height / 2 + 'px';
+      img.style.backgroundImage = `url(images/${m.sheet})`;
+      img.style.backgroundPosition = `-${m.x}px -${m.y}px`;
+      img.onclick = () => {
+        selections.color = code;
+        document.querySelectorAll('.sprite').forEach(i => i.style.border = '2px solid transparent');
+        img.style.border = '2px solid red';
+        document.getElementById('submit-btn').disabled = false;
+        showStep('step4');
+      };
+      container.appendChild(img);
+    }
+  });
+  showStep('step4');
+}
+
+function openForm() {
+  const base = "https://ap9.ragic.com/jersey/forms6/16";
+  const params = [
+    'webview', 'webaction=form', 'ver=new', 'version=2',
+    `pfv1001193=${encodeURIComponent(selections.sport)}`,
+    `pfv1000069=${encodeURIComponent(selections.item)}`,
+    `pfv1002088=${encodeURIComponent("短版球褲")}`,
+    `pfv1000071=${encodeURIComponent(selections.style)}`,
+    `pfv1001153=${encodeURIComponent(selections.color)}`
+  ].join('&');
+  const url = `${base}?${params}`;
+  const popup = window.open(url, 'RagicForm', 'width=1000,height=800');
+  if (!popup || popup.closed || typeof popup.closed === 'undefined') {
+    window.location.href = url;
+  }
+}
+
+fetch("mapping.json")
+  .then(res => res.json())
+  .then(data => { mapping = data; });
 </script>
 </body>
 </html>
