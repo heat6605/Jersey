@@ -1,60 +1,47 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>Jersey 圖片選單</title>
+  <title>Jersey 圖片選單 - Sprite Sheet</title>
   <style>
     body { font-family: sans-serif; text-align: center; padding: 20px; }
-    section { display: none; margin-top: 20px; }
-    .active { display: block; }
-    .option-img {
-      width: 160px; margin: 10px; cursor: pointer;
-      border: 2px solid transparent; transition: border 0.3s;
-    }
-    .option-img:hover { border: 2px solid #007bff; }
-    .grid { display: flex; flex-wrap: wrap; justify-content: center; }
-    #submit-btn {
+    .sprite {
+      width: 160px; height: 106px;
+      margin: 8px;
       display: inline-block;
-      margin-top: 30px;
-      padding: 12px 24px;
-      background-color: #007bff;
-      color: white;
-      border-radius: 6px;
-      font-size: 18px;
-      text-decoration: none;
+      background-repeat: no-repeat;
+      background-size: 3000px 2000px;
+      border: 2px solid transparent;
       cursor: pointer;
+    }
+    .sprite:hover {
+      border: 2px solid red;
     }
   </style>
 </head>
 <body>
-  <h2>Jersey 圖片選單</h2>
+  <h2>Sprite Sheet 測試選單</h2>
+  <div id="container"></div>
 
-  <section id="step1" class="active">
-    <h3>1. 選擇運動類型</h3>
-    <div class="grid">
-      <img src="images/basketball.jpg" class="option-img" onclick="selectSport('籃球')">
-      <img src="images/volleyball.jpg" class="option-img" onclick="selectSport('排球')">
-      <img src="images/badminton.jpg" class="option-img" onclick="selectSport('羽球')">
-    </div>
-  </section>
+<script>
+  const container = document.getElementById("container");
 
-  <section id="step2">
-    <h3>2. 選擇訂購品項</h3>
-    <div class="grid" id="item-options"></div>
-  </section>
-
-  <section id="step3">
-    <h3>3. 選擇款式</h3>
-    <div class="grid" id="style-options"></div>
-  </section>
-
-  <section id="step4">
-    <h3>4. 選擇配色</h3>
-    <div class="grid" id="color-options"></div>
-    <button id="submit-btn" onclick="openForm()" disabled>前往填寫表單</button>
-  </section>
-  <script>
-    // JS 將會自動插入（來自先前 canvas 內容）
-  </script>
+  fetch("mapping.json")
+    .then(res => res.json())
+    .then(data => {
+      Object.entries(data).forEach(([filename, info]) => {
+        const div = document.createElement("div");
+        div.className = "sprite";
+        div.style.backgroundImage = `url(images/${info.sheet})`;
+        div.style.backgroundPosition = `-${info.x}px -${info.y}px`;
+        div.style.width = info.width / 2 + "px";
+        div.style.height = info.height / 2 + "px";
+        div.title = filename;
+        div.onclick = () => alert("你點了：" + filename);
+        container.appendChild(div);
+      });
+    });
+</script>
 </body>
 </html>
