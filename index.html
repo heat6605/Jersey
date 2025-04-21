@@ -201,22 +201,25 @@
     }
 
     function showJerseyTypes(sport, item) {
-      const typeDiv = document.getElementById('jerseyTypes');
-      typeDiv.innerHTML = '';
-      data[sport].items[item].forEach(type => {
-        const opt = createOption(`images/${sport}/${type}.jpg`, type, () => {
-          selections.jerseyType = type;
-          if (sport === '籃球') {
-            showShortsTypes(sport);
-          } else {
-            selections.shortsType = "";
-            showStyles(sport, type);
-          }
-        });
-        typeDiv.appendChild(opt);
-      });
-      showStep('step3');
-    }
+  const typeDiv = document.getElementById('jerseyTypes');
+  typeDiv.innerHTML = '';
+  data[sport].items[item].forEach(type => {
+    const opt = createOption(`images/${sport}/${type}.jpg`, type, () => {
+      selections.jerseyType = type;
+
+      if (data[sport].skipStyleSelection?.includes(item)) {
+        selections.style = type; 
+        showColors(sport, type);
+      } else if (sport === '籃球') {
+        showShortsTypes(sport);
+      } else {
+        showStyles(sport, type);
+      }
+    });
+    typeDiv.appendChild(opt);
+  });
+  showStep('step3');
+}
 
     function showShortsTypes(sport) {
       const shortsDiv = document.getElementById('shortsTypes');
