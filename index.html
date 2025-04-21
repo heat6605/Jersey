@@ -28,42 +28,60 @@
   cursor: pointer;
 }
   </style>
+<head>
+<meta charset="utf-8"/>
+<title>SGB 款式挑選</title>
+<style>
+    body { font-family: sans-serif; text-align: center; padding: 20px; }
+    section { display: none; margin-top: 20px; }
+    .active { display: block; }
+    .option { display: inline-block; margin: 10px; }
+    .option-img {
+      width: 240px;
+      height: 240px;
+      object-fit: cover;
+      border: 2px solid transparent;
+      transition: border 0.3s;
+    }
+    .option-img:hover { border: 2px solid #007bff; }
+    .label { margin-top: 6px; font-size: 14px; }
+    .back-btn { margin-top: 10px; display: block; }
+  </style>
 </head>
 <body>
-  <h2>SGB 款式挑選</h2>
-  <section id="step1" class="active">
-    <h3>1. 選擇運動類型</h3>
-    <div id="sports"></div>
-  </section>
-  <section id="step2">
-    <h3>2. 選擇品項</h3>
-    <div id="items"></div>
-    <button class="back-btn" onclick="showStep('step1')">← 上一步</button>
-  </section>
-  <section id="step3">
-    <h3>3. 選擇球衣版型</h3>
-    <div id="jerseyTypes"></div>
-    <button class="back-btn" onclick="showStep('step2')">← 上一步</button>
-  </section>
-  <section id="step4">
-    <h3>4. 選擇球褲版型</h3>
-    <div id="shortsTypes"></div>
-    <button class="back-btn" onclick="showStep('step3')">← 上一步</button>
-  </section>
-  <section id="step5">
-    <h3>5. 選擇款式</h3>
-    <div id="styles"></div>
-    <button class="back-btn" onclick="showStep('step4')">← 上一步</button>
-  </section>
-  <section id="step6">
-    <h3>6. 選擇配色</h3>
-    <div id="colors"></div>
-    <button class="back-btn" onclick="showStep('step5')">← 上一步</button>
-  </section>
-  <section id="step7">
-    <h3>7. 填寫訂購表單</h3>
-    <button onclick="goToRagic()">前往 Ragic 表單</button>
-    <button class="back-btn" onclick="showStep('step6')">← 上一步</button>
+<h2>SGB 款式挑選</h2>
+<section class="active" id="step1">
+<h3>1. 選擇運動類型</h3>
+<div id="sports"></div>
+</section>
+<section id="step2">
+<h3>2. 選擇品項</h3><button class="back-btn" onclick="showStep('step1')">← 上一步</button>
+<div id="items"></div>
+
+</section>
+<section id="step3">
+<h3>3. 選擇球衣版型</h3><button class="back-btn" onclick="showStep('step2')">← 上一步</button>
+<div id="jerseyTypes"></div>
+
+</section>
+<section id="step4">
+<h3>4. 選擇球褲版型</h3><button class="back-btn" onclick="showStep('step3')">← 上一步</button>
+<div id="shortsTypes"></div>
+
+</section>
+<section id="step5">
+<h3>5. 選擇款式</h3><button class="back-btn" onclick="showStep('step4')">← 上一步</button>
+<div id="styles"></div>
+
+</section>
+<section id="step6">
+<h3>6. 選擇配色</h3><button class="back-btn" onclick="showStep('step5')">← 上一步</button>
+<div id="colors"></div>
+
+</section>
+<section id="step7">
+<h3>7. 填寫訂購表單</h3><button class="back-btn" onclick="showStep('step6')">← 上一步</button>
+<button onclick="goToRagic()">前往 Ragic 表單</button>
   </section>
 
   <script>
