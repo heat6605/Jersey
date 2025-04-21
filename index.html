@@ -17,84 +17,116 @@
     }
     .option-img:hover { border: 2px solid #007bff; }
     .label { margin-top: 6px; font-size: 14px; }
+    .back-btn { margin-top: 10px; display: block; }
   </style>
 </head>
 <body>
   <h2>Jersey 圖片選單</h2>
+
   <section id="step1" class="active">
-    <h3>1. 選擇運動類型</h3>
-    <div id="sports"></div>
-  </section>
-  <section id="step2">
-    <h3>2. 選擇品項</h3>
-    <div id="items"></div>
-  </section>
-  <section id="step3">
-    <h3>3. 選擇款式</h3>
-    <div id="styles"></div>
-  </section>
-  <section id="step4">
-    <h3>4. 選擇配色</h3>
-    <div id="colors"></div>
-  </section>
-  <section id="step5">
-    <h3>5. 填寫訂購表單</h3>
-    <button onclick="goToRagic()">前往 Ragic 表單</button>
-  </section>
+  <h3>1. 選擇運動類型</h3>
+  <div id="sports"></div>
+</section>
+<section id="step2">
+  <h3>2. 選擇品項</h3>
+  <div id="items"></div>
+  <button class="back-btn" onclick="showStep('step1')">← 上一步</button>
+</section>
+<section id="step3">
+  <h3>3. 選擇球衣版型</h3>
+  <div id="jerseyTypes"></div>
+  <button class="back-btn" onclick="showStep('step2')">← 上一步</button>
+</section>
+<section id="step4">
+  <h3>4. 選擇球褲版型</h3>
+  <div id="shortsTypes"></div>
+  <button class="back-btn" onclick="showStep('step3')">← 上一步</button>
+</section>
+<section id="step5">
+  <h3>5. 選擇款式</h3>
+  <div id="styles"></div>
+  <button class="back-btn" onclick="showStep('step4')">← 上一步</button>
+</section>
+<section id="step6">
+  <h3>6. 選擇配色</h3>
+  <div id="colors"></div>
+  <button class="back-btn" onclick="showStep('step5')">← 上一步</button>
+</section>
+<section id="step7">
+  <h3>7. 填寫訂購表單</h3>
+  <button onclick="goToRagic()">前往 Ragic 表單</button>
+  <button class="back-btn" onclick="showStep('step6')">← 上一步</button>
+</section>
 
   <script>
     const data = {
       "籃球": {
-        items: ["雙面球衣+單面球褲", "單面球衣*2+單面球褲", "單面球衣*2+單面球褲*2"],
+        items: {
+          "雙面球衣+單面球褲": ["雙面圓領"],
+          "單面球衣*2+單面球褲": ["單面圓領", "單面V領"],
+          "單面球衣*2+單面球褲*2": ["單面圓領", "單面V領"]
+        },
+        shorts: ["經典球褲", "短版球褲"],
         styles: {
-          S41: ["KB", "BK", "PP", "DR", "AG", "GL"],
-          S42: ["SV","BK","PP","CB","DR","GL"],
-          S43: ["BK","PP","DE","CR","AY","GL"],
-          S44: ["DNB","DNS","DNG","DNK"],
-          S31: ["SB","BK","BS","CB","FP","FG","CR","BP","BL","LV","MB","EP","TH","PH","BR","MP","NY","GS","CL","LA","MT","MG","DL","MH"],
-          S32: ["BK","NW","AP","MG","WB","PW","CR","AW"],
-          S21: ["GR","DB","DR","ZG","PP","IG","WB","AW"],
-          S23: ["WR","AW","NW","BK","PP","PW","CR","VG","GBL","GOY","EP","CB","LY","MG","MB","WB"],
-          S24: ["NW","BK","KB","PP","CY","BO","VG"],
-          S10: ["BK","AW","WR","AG","BB","AY","LG"],
-          S11: ["AY","AW","BK","AG","WG","WR","BB"],
-          S12: ["BK","CB","AW","LG","AY","AG","WR"],
-          S13: ["BK","AG","DT","SG","DB","WR","GG"],
-          S01: ["BK","AG","BB","AY","LB","WG"],
-          S03: ["AW","BK","AG","NW","AY","AR","LB","WG"],
-          S07: ["AW","BK","AG","BB","AY","AR","LB","WG"],
-          S08: ["GB","BK","DY","SB","GP","SR","BN"],
-          S09: ["BK","AW","AG","BB","AY","LB","WG"]
+          雙面圓領: ["S31","S32","S21","S23","S24","S10","S11","S12","S13","S01","S03","S07","S08","S09","S51","S52","S53","S54","S41","S42","S43","S44"],
+          單面圓領: ["S31","S32","S21","S23","S24","S10","S11","S12","S13","S01","S03","S07","S08","S09"],
+          單面V領: ["S51","S52","S53","S54","S41","S42","S43","S44"]
+        },
+        colors: {
+          V41: ["WB", "BK", "MB", "PP", "LB", "MG", "PW", "LV", "GL", "DR"],
+          V42: ["NB", "PW", "PP", "BO", "BK"],
+          V43: ["FG", "BK", "GB", "PB", "AW"],
+          V44: ["AW", "BK", "TB", "QP", "SW", "DR"],
+          V45: ["LB", "OR", "QP", "AW", "RB"],
+          V46: ["NB", "QP", "PP", "MT", "AW", "RB"],
+          V31: ["AW", "WG", "UN", "TCG", "WBI", "PB", "QP"],
+          V32: ["QP", "DW", "UN", "FG", "KG", "FP"],
+          V47: ["TB", "BW", "OY", "WR", "LG"],
+          V48: ["BK", "AW", "YY", "WR", "TPB"],
+          V49: ["BK", "OY", "WBI", "WR", "TCG"],
+          V51: ["NB", "PW", "PP", "BO", "BK"],
+          V52: ["NB", "PW", "PP", "BO", "BK"],
+          V53: ["NB", "PW", "PP", "BO", "BK"],
+          V54: ["NB", "PW", "PP", "BO", "BK"]
         }
       },
       "排球": {
-        items: ["排羽球上衣", "排羽球上衣+排球褲"],
+        items: {
+          "排羽球上衣": ["拉克蘭袖", "SGB袖"],
+          "排羽球上衣+SGB染色排球褲": ["拉克蘭袖", "SGB袖"],
+          "練習衣-口個": ["練習衣"],
+          "練習衣+SGB染色排球褲": ["練習衣"]
+        },
         styles: {
-          V41: ["WB","BK","MB","PP","LB","MG","PW","LV","GL","DR"],
-          V42: ["NB","WB","PW","PP","BO","BK"],
-          V43: ["FG","BK","GB","MG","PB","AW"],
-          V44: ["AW","BK","GB","TB","QP","SV"],
-          V45: ["LB","OR","GL","NW","PP","DR"],
-          V46: ["NB","QP","PP","MT","AW","RB"],
-          V31: ["AW","EG","TCG","WBI","PB","QP"],
-          V32: ["QP","DW","UN","FG","KG","FP"],
-          V47: ["TB","BW","OY","WR","LG"],
-          V48: ["BK","AW","YY","WR","TPB"],
-          V49: ["BK","OY","WBI","WR","TCG"]
+          "拉克蘭袖": ["V51","V52","V53","V54","V41","V42","V43","V44","V45","V46","V47","V48","V49"],
+          "SGB袖": ["V31","V32"],
+          "練習衣": ["白", "淺灰", "深灰", "黑", "芥末黃", "南瓜橘", "螢光黃", "嫩黃綠", "嫩綠", "30紅", "紅", "酒紅", "天空藍", "淺紫", "深紫", "深藍", "寶藍", "丈青", "藍綠", "草綠", "墨綠", "卡其"]
+        },
+        colors: {
+          B21: ["NB", "CB", "PB", "BO", "BK"],
+          B11: ["BK", "KC", "KB", "WR", "BO"],
+          B12: ["GB", "CB", "NTY", "GA", "JG"],
+          B13: ["BK", "GB", "NTY", "AW", "GA"],
+          B51: ["NB", "CB", "PB", "BO", "BK"],
+          B52: ["NB", "CB", "PB", "BO", "BK"]
         }
       },
       "羽球": {
-        items: ["排羽球上衣", "排羽球上衣+排球褲"],
+        items: {
+          "排羽球上衣": ["拉克蘭袖", "SGB袖"],
+          "排羽球上衣+SGB染色排球褲": ["拉克蘭袖", "SGB袖"],
+          "練習衣-口個": ["練習衣"],
+          "練習衣+SGB染色排球褲": ["練習衣"]
+        },
         styles: {
-          B21: ["NB","CB","PB","BO","BK"],
-          B11: ["BK","KC","KB","WR","BO"],
-          B12: ["GB","BK","NTY","GA","JG"],
-          B13: ["BK","GB","NTY","AW","GA"]
-        }
+          "拉克蘭袖": ["V51","V52"],
+          "SGB袖": ["B21","B11","B12","B13"],
+          "練習衣": ["白", "淺灰", "深灰", "黑", "芥末黃", "南瓜橘", "螢光黃", "嫩黃綠", "嫩綠", "30紅", "紅", "酒紅", "天空藍", "淺紫", "深紫", "深藍", "寶藍", "丈青", "藍綠", "草綠", "墨綠", "卡其"]
+        },
+        colors: {}
       }
     };
-
-    let selections = { sport: "", item: "", style: "", color: "" };
+      let selections = { sport: "", item: "", jerseyType: "", shortsType: "", style: "", color: "" };
 
     function createOption(imgSrc, label, callback) {
       const div = document.createElement('div');
@@ -102,6 +134,7 @@
       const img = document.createElement('img');
       img.src = imgSrc;
       img.className = 'option-img';
+      img.onerror = () => img.src = 'images/default.jpg';
       img.onclick = callback;
       const lbl = document.createElement('div');
       lbl.className = 'label';
@@ -111,16 +144,15 @@
       return div;
     }
 
-    function showStep(step) {
+    function showStep(stepId) {
       document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-      document.getElementById(step).classList.add('active');
+      document.getElementById(stepId).classList.add('active');
     }
 
     function init() {
       const sportDiv = document.getElementById('sports');
       Object.keys(data).forEach(sport => {
-        const imgSrc = `images/${sport}.jpg`;
-        const opt = createOption(imgSrc, sport, () => {
+        const opt = createOption(`images/${sport}.jpg`, sport, () => {
           selections.sport = sport;
           showItems(sport);
         });
@@ -131,46 +163,71 @@
     function showItems(sport) {
       const itemDiv = document.getElementById('items');
       itemDiv.innerHTML = '';
-      data[sport].items.forEach(item => {
-        const imgSrc = `images/${sport}/${item}.jpg`;
-        const opt = createOption(imgSrc, item, () => {
+      Object.keys(data[sport].items).forEach(item => {
+        const opt = createOption(`images/${sport}/${item}.jpg`, item, () => {
           selections.item = item;
-          showStyles(sport);
+          showJerseyTypes(sport, item);
         });
         itemDiv.appendChild(opt);
       });
       showStep('step2');
     }
 
-    function showStyles(sport) {
+    function showJerseyTypes(sport, item) {
+      const typeDiv = document.getElementById('jerseyTypes');
+      typeDiv.innerHTML = '';
+      data[sport].items[item].forEach(type => {
+        const opt = createOption(`images/${sport}/${type}.jpg`, type, () => {
+          selections.jerseyType = type;
+          if (sport === '籃球') {
+            showShortsTypes(sport);
+          } else {
+            showStyles(sport, type);
+          }
+        });
+        typeDiv.appendChild(opt);
+      });
+      showStep('step3');
+    }
+
+    function showShortsTypes(sport) {
+      const shortsDiv = document.getElementById('shortsTypes');
+      shortsDiv.innerHTML = '';
+      data[sport].shorts.forEach(type => {
+        const opt = createOption(`images/${sport}/${type}.jpg`, type, () => {
+          selections.shortsType = type;
+          showStyles(sport, selections.jerseyType);
+        });
+        shortsDiv.appendChild(opt);
+      });
+      showStep('step4');
+    }
+
+    function showStyles(sport, jerseyType) {
       const styleDiv = document.getElementById('styles');
       styleDiv.innerHTML = '';
-      const styles = data[sport].styles;
-      Object.keys(styles).forEach(style => {
-        const imgSrc = `images/${sport}/${style}.jpg`;
-        const opt = createOption(imgSrc, style, () => {
+      data[sport].styles[jerseyType].forEach(style => {
+        const opt = createOption(`images/${sport}/${style}.jpg`, style, () => {
           selections.style = style;
           showColors(sport, style);
         });
         styleDiv.appendChild(opt);
       });
-      showStep('step3');
+      showStep('step5');
     }
 
     function showColors(sport, style) {
       const colorDiv = document.getElementById('colors');
       colorDiv.innerHTML = '';
-      const colors = data[sport].styles[style];
-      colors.forEach(color => {
-        const imgSrc = `images/${sport}/${style}-${color}.jpg`;
+      (data[sport].colors[style] || []).forEach(color => {
         const label = `${style}-${color}`;
-        const opt = createOption(imgSrc, label, () => {
-          selections.color = `${style}-${color}`;
-          showStep('step5');
+        const opt = createOption(`images/${sport}/${label}.jpg`, label, () => {
+          selections.color = label;
+          showStep('step7');
         });
         colorDiv.appendChild(opt);
       });
-      showStep('step4');
+      showStep('step6');
     }
 
     function goToRagic() {
@@ -182,16 +239,13 @@
         version: "2",
         pfv1001193: selections.sport,
         pfv1000069: selections.item,
-        pfv1002088: "短版球褲",
+        pfv1002088: selections.shortsType,
         pfv1000071: selections.style,
         pfv1001153: selections.color
       });
-      const url = `${base}?${params.toString()}`;
-      window.open(url, '_blank');
+      window.open(`${base}?${params.toString()}`, '_blank');
     }
 
     init();
-  </script>
 </body>
 </html>
-
