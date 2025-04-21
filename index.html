@@ -149,7 +149,7 @@ const data = {
       "練習衣一口價": ["練習衣"],
       "練習衣+SGB素色排球褲": ["練習衣"]
     },
-    skipStyleSelection: ["練習衣一口價", "練習衣+SGB素色排球褲"],
+    skipStyleSelection: [],
     styles: {
       "拉克蘭袖": ["V51","V52","V53","V54","V41","V42","V43","V44","V45","V46","V47","V48","V49"],
       "SGB短袖": ["V31","V32"],
@@ -181,7 +181,7 @@ const data = {
       "練習衣一口價": ["練習衣"],
       "練習衣+SGB素色排球褲": ["練習衣"]
     },
-    skipStyleSelection: ["練習衣一口價", "練習衣+SGB素色排球褲"],
+    skipStyleSelection: [],
     styles: {
       "拉克蘭袖": ["V51","V52"],
       "SGB短袖": ["B21","B11","B12","B13"],
@@ -256,9 +256,9 @@ function showJerseyTypes(sport, item) {
     const opt = createOption(imgSrc, type, () => {
       selections.jerseyType = type;
       if (data[sport].skipStyleSelection?.includes(item)) {
-        selections.style = type;
-        showColors(sport, type);
-      } else if (sport === '籃球') {
+  selections.style = "T01";
+  showColors(sport, "T01");
+} else if (sport === '籃球') {
         showShortsTypes(sport);
       } else {
         showStyles(sport, type);
