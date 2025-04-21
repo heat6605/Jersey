@@ -4,16 +4,15 @@
   <meta charset="UTF-8">
   <title>SGB 款式挑選</title>
   <style>
-    body {
-  font-family: sans-serif;
-  text-align: center;
-  padding: 20px;
-
-  background-image: url('images/bg.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-attachment: fixed;
+   body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3); /* ⬅️ 0.3 表示 30%白色 → 70%透明 */
+  z-index: -1; /* 讓它在內容底下 */
 }
     section { display: none; margin-top: 20px; }
     .active { display: block; }
