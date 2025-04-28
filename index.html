@@ -296,6 +296,9 @@ function showJerseyTypes(sport, item) {
   const typeDiv = document.getElementById('jerseyTypes');
   typeDiv.innerHTML = '';
   data[sport].items[item].forEach(type => {
+    if (sport === '羽球' && type === '拉克蘭袖') {
+      return; 
+    }
     const imgSrc = `images/styles/${imageLabelMap[type] || type}.png`;
     const opt = createOption(imgSrc, type, () => {
       selections.jerseyType = type;
