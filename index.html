@@ -6,7 +6,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
 
   <style>
-    html, body {
+html, body {
   height: 100%;
   min-height: 100vh;
   font-family: 'Noto Sans TC', sans-serif;
@@ -18,30 +18,32 @@
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
-  background-color: #000; /* 新增，避免blend問題 */
-  background-blend-mode: normal; /* 改正常，避免疊色 */
+  background-color: #000;
+  background-blend-mode: normal;
 }
 
-    section {
+section {
   display: none;
   opacity: 0;
   transition: opacity 0.5s ease, transform 0.5s ease;
-  background: transparent; /* ✅ 加這行，避免顯示奇怪顏色 */
+  background: transparent;
 }
-    section.active {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
 
-    .option {
-  display: inline-block; /* ✅ 桌機版橫排 */
+section.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.option {
+  display: inline-block;
   margin: 10px;
   transition: all 0.3s ease;
-  width: auto; /* ✅ 桌機版寬度由內容決定 */
+  width: auto;
   max-width: 240px;
 }
-    .option-img {
+
+.option-img {
   width: 100%;
   max-width: 240px;
   height: auto;
@@ -50,97 +52,96 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
 }
-    .option-img:hover {
-      border: 2px solid #007bff;
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
-    }
-    .option-img:active {
-      transform: translateY(-5px) scale(0.95);
-    }
 
-    .label {
-      margin-top: 6px;
-      font-size: 20px;
-      color: #fff;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-    }
+.option-img:hover {
+  border: 2px solid #007bff;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+}
 
-    .back-btn, .submit-btn {
-      margin: 10px auto;
-      display: block;
-      border-radius: 4px;
-      font-family: 'Noto Sans TC', sans-serif;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
+.option-img:active {
+  transform: translateY(-5px) scale(0.95);
+}
 
-    .back-btn {
-      padding: 8px 20px;
-      font-size: 16px;
-      border: 1px solid #fff;
-      background-color: #000;
-      color: #fff;
-    }
-    .back-btn:hover {
-      background-color: #fff;
-      color: #000;
-    }
+.label {
+  margin-top: 6px;
+  font-size: 20px;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
 
-    .submit-btn {
-      padding: 18px 30px;
-      font-size: 24px;
-      border: 2px solid #d33;
-      background-color: #fff;
-      color: #000;
-    }
-    .submit-btn:hover {
-      background-color: #d33;
-      color: #fff;
-    }
+.back-btn, .submit-btn {
+  margin: 10px auto;
+  display: block;
+  border-radius: 4px;
+  font-family: 'Noto Sans TC', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-    h2, h3 {
-      color: #fff;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-    }
+.back-btn {
+  padding: 8px 20px;
+  font-size: 16px;
+  border: 1px solid #fff;
+  background-color: #000;
+  color: #fff;
+}
 
-    @media (max-width: 768px) {
+.back-btn:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.submit-btn {
+  padding: 18px 30px;
+  font-size: 24px;
+  border: 2px solid #d33;
+  background-color: #fff;
+  color: #000;
+}
+
+.submit-btn:hover {
+  background-color: #d33;
+  color: #fff;
+}
+
+h2, h3 {
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* 手機版調整 */
+@media (max-width: 768px) {
   .option {
-    display: block; /* ✅ 手機版改直式 */
+    display: block;
     margin: 10px auto;
     width: 100%;
     max-width: 300px;
   }
 
   .option-img {
-    max-width: 200px; /* ✅ 手機版圖片稍微小一點 */
+    max-width: 200px;
+  }
+
+  h2, h3 {
+    font-size: 20px;
+  }
+
+  .label {
+    font-size: 16px;
+  }
+
+  .back-btn {
+    font-size: 18px;
+    padding: 12px 24px;
+  }
+
+  .submit-btn {
+    font-size: 20px;
+    padding: 14px 24px;
   }
 }
-      .option {
-        display: block;
-        margin: 10px auto;
-        width: 100%;
-        max-width: 300px;
-      }
-      .option-img {
-        max-width: 200px;
-      }
-      h2, h3 {
-        font-size: 20px;
-      }
-      .label {
-        font-size: 16px;
-      }
-      .back-btn {
-        font-size: 18px;
-        padding: 12px 24px;
-      }
-      .submit-btn {
-        font-size: 20px;
-        padding: 14px 24px;
-      }
-    }
-  </style>
+</style>
 </head>
 
 <body>
