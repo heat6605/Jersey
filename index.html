@@ -103,11 +103,12 @@
     @media (max-width: 768px) {
   body {
   background-image: url('images/background/bg-mobile.jpg');
-  background-repeat: repeat-y;
-  background-position: top center;
-  background-size: auto 100%;
-  background-attachment: scroll;
   background-color: #1a1a1a;
+  background-repeat: repeat-y;   /* ✅ Y 軸重複出現 */
+  background-size: contain;      /* ✅ 保持原圖大小 */
+  background-position: top center; /* ✅ 置中且從上開始 */
+  background-attachment: scroll; /* ✅ 手機用 scroll */
+  min-height: 100vh;
 }
       .option {
         display: block;
