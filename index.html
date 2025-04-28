@@ -103,9 +103,10 @@
     @media (max-width: 768px) {
   body {
     background-image: url('images/background/bg-mobile.jpg');
-    background-color: #1a1a1a;
+    background-color: #000; /* ✅ 改成全黑，不要深灰避免奇怪混色 */
+    background-blend-mode: normal; /* ✅ 不混色 */
     background-repeat: repeat-y;
-    background-size: auto 120px; /* ✅ 這邊改成固定高度120px */
+    background-size: 100% 120px; /* ✅ 寬100%固定，高120px固定 */
     background-position: top center;
     background-attachment: scroll;
     min-height: 100vh;
