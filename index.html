@@ -36,7 +36,7 @@ body::before {
   body {
     background-image: url('images/background/bg-mobile.jpg');
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     background-position: top center;
     background-attachment: fixed;
     min-height: 100vh;
@@ -340,8 +340,9 @@ function showStep(stepId) {
   const target = document.getElementById(stepId);
 
   allSections.forEach(section => {
-    section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    section.style.transition = 'opacity 0.6s ease-in-out, transform 0.6s ease-in-out';
     const title = section.querySelector('h3');
+
     if (section.id === stepId) {
       section.style.display = 'block';
       setTimeout(() => {
@@ -352,7 +353,7 @@ function showStep(stepId) {
           title.style.opacity = '1';
           title.style.transform = 'translateY(0)';
         }
-      }, 10);
+      }, 50); // 留一點空隙再淡入，過渡更自然
     } else {
       section.classList.remove('active');
       section.style.opacity = '0';
@@ -363,7 +364,7 @@ function showStep(stepId) {
       }
       setTimeout(() => {
         section.style.display = 'none';
-      }, 500);
+      }, 600); // 和動畫時間一致
     }
   });
 }
