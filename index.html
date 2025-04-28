@@ -136,21 +136,6 @@
       }
     }
   </style>
-
-  <script>
-    function updateBackground() {
-      const body = document.body;
-      if (window.innerWidth <= 768) {
-        body.style.backgroundImage = "url('images/background/bg-mobile.jpg')";
-        body.style.backgroundAttachment = "scroll";
-      } else {
-        body.style.backgroundImage = "url('images/background/bg-desktop.jpg')";
-        body.style.backgroundAttachment = "fixed";
-      }
-    }
-    document.addEventListener('DOMContentLoaded', updateBackground);
-    window.addEventListener('resize', updateBackground);
-  </script>
 </head>
 
 <body>
