@@ -206,11 +206,7 @@ h2, h3 {
 <section id="step7">
   <h3>7. 填寫訂購資料</h3>
   <button class="submit-btn" onclick="alert('跳轉至Ragic表單')">前往Ragic表單</button>
-</section>
 
-<section id="step7">
-  <h3>7. 填寫訂購資料</h3>
-  <button class="submit-btn" onclick="alert('跳轉至Ragic表單')">前往Ragic表單</button>
 </section>
   <div class="hidden-demo">
   <div class="option"><img src="images/sample.jpg"><div>示意圖1</div></div>
@@ -352,6 +348,13 @@ function createOption(imgSrc, label, callback) {
 function showStep(stepId) {
   const allSections = document.querySelectorAll('section');
   const target = document.getElementById(stepId);
+
+  if (stepId === 'step1') document.getElementById('sports').innerHTML = '';
+  if (stepId === 'step2') document.getElementById('items').innerHTML = '';
+  if (stepId === 'step3') document.getElementById('jerseyTypes').innerHTML = '';
+  if (stepId === 'step4') document.getElementById('shortsTypes').innerHTML = '';
+  if (stepId === 'step5') document.getElementById('styles').innerHTML = '';
+  if (stepId === 'step6') document.getElementById('colors').innerHTML = '';
 
   allSections.forEach(section => {
     section.style.transition = 'opacity 0.6s ease-in-out, transform 0.6s ease-in-out';
@@ -501,18 +504,7 @@ function goToRagic() {
   });
   window.open(`${base}?${params.toString()}`, '_blank');
 }
-function showStep(stepId) {
-  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-  document.getElementById(stepId).classList.add('active');
 
-  // 每次切換步驟，清空正式容器，避免假內容影響
-  if (stepId === 'step1') document.getElementById('sports').innerHTML = '';
-  if (stepId === 'step2') document.getElementById('items').innerHTML = '';
-  if (stepId === 'step3') document.getElementById('jerseyTypes').innerHTML = '';
-  if (stepId === 'step4') document.getElementById('shortsTypes').innerHTML = '';
-  if (stepId === 'step5') document.getElementById('styles').innerHTML = '';
-  if (stepId === 'step6') document.getElementById('colors').innerHTML = '';
-}
     
     init();
   </script>
