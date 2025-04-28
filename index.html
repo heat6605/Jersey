@@ -457,6 +457,7 @@ function showStyles(sport, jerseyType) {
 function showColors(sport, style) {
   const colorDiv = document.getElementById('colors');
   colorDiv.innerHTML = '';
+
   (data[sport].colors[style] || []).forEach((color, idx) => {
     const label = `${style}-${color}`;
     const imgSrc = `images/colors/${label}.png`;
@@ -466,6 +467,15 @@ function showColors(sport, style) {
     }, idx);
     colorDiv.appendChild(opt);
   });
+
+  // 🔥 新增這段：動態設定step6返回按鈕
+  const backBtn = document.querySelector('#step6 .back-btn');
+  if (selections.item === "練習衣+SGB素色排球褲" || selections.item === "練習衣一口價") {
+    backBtn.setAttribute('onclick', "showStep('step2')");
+  } else {
+    backBtn.setAttribute('onclick', "showStep('step5')");
+  }
+
   showStep('step6');
 }
 
