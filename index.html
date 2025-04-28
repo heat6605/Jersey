@@ -55,7 +55,6 @@ body {
   min-height: 100vh;
   min-height: 100svh;
 }
-}
 
 section {
   display: none;
@@ -387,29 +386,6 @@ function init() {
       section.style.transform = 'translateY(20px)';
     }
   });
-}
-
-  setTimeout(() => {
-    target.style.display = 'block';
-    target.classList.add('active');
-    target.style.opacity = '0';
-    target.style.transform = 'translateY(20px)';
-
-    const targetTitle = target.querySelector('h3');
-    if (targetTitle) {
-      targetTitle.style.opacity = '0';
-      targetTitle.style.transform = 'translateY(10px)';
-    }
-
-    setTimeout(() => {
-      target.style.opacity = '1';
-      target.style.transform = 'translateY(0)';
-      if (targetTitle) {
-        targetTitle.style.opacity = '1';
-        targetTitle.style.transform = 'translateY(0)';
-      }
-    }, 50);
-  }, 500);
 }
 
 function showItems(sport) {
