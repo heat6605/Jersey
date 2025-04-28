@@ -57,8 +57,15 @@ body {
 }
 }
 
-section { display: none; margin-top: 20px; }
-.active { display: block; }
+section {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.active {
+  display: block;
+  opacity: 1;
+}
 
 .option { 
   display: inline-block; 
@@ -334,32 +341,53 @@ function showStep(stepId) {
   const target = document.getElementById(stepId);
 
   allSections.forEach(section => {
+    section.style.transition = 'none'; // 避免初次載入閃爍
+
+    const title = section.querySelector('h3');
+    if (title) {
+      title.style.transition = 'none';
+      title.style.opacity = '0';
+      title.style.transform = 'translateY(-10px)';
+    }
+
     if (section.classList.contains('active')) {
       section.style.opacity = '0';
-      section.style.transition = 'opacity 0.5s ease';
-
+      section.style.transform = 'translateY(-20px)';
       setTimeout(() => {
         section.classList.remove('active');
-        target.classList.add('active');
-        target.style.opacity = '0';
-        setTimeout(() => {
-          target.style.opacity = '1';
-        }, 50);
+        section.style.display = 'none';
       }, 500);
+    } else {
+      section.style.display = 'none';
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(20px)';
     }
   });
-}
 
-function init() {
-  const sportDiv = document.getElementById('sports');
-  Object.keys(data).forEach(sport => {
-    const imgSrc = `images/sports/${imageLabelMap[sport] || sport}.png`;
-    const opt = createOption(imgSrc, sport, () => {
-      selections.sport = sport;
-      showItems(sport);
-    });
-    sportDiv.appendChild(opt);
-  });
+  setTimeout(() => {
+    target.style.display = 'block';
+    target.classList.add('active');
+    target.style.opacity = '0';
+    target.style.transform = 'translateY(20px)';
+    target.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+
+    const targetTitle = target.querySelector('h3');
+    if (targetTitle) {
+      targetTitle.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      targetTitle.style.opacity = '0';
+      targetTitle.style.transform = 'translateY(-10px)';
+    }
+
+    setTimeout(() => {
+      target.style.opacity = '1';
+      target.style.transform = 'translateY(0)';
+
+      if (targetTitle) {
+        targetTitle.style.opacity = '1';
+        targetTitle.style.transform = 'translateY(0)';
+      }
+    }, 50);
+  }, 500);
 }
 
 function showItems(sport) {
