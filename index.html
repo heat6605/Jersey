@@ -11,7 +11,7 @@
       color: #fff;
       text-align: center;
       padding: 20px;
-      background-image: url('images/bg-desktop.jpg');
+      background-image: url('images/background/bg-desktop.jpg');
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
@@ -65,7 +65,7 @@
     }
    @media (max-width: 768px) {
   body {
-    background-image: url('images/bg-mobile.jpg');
+    background-image: url('images/background/bg-mobile.jpg');
     background-position: top center;
     background-attachment: scroll;
   }
@@ -266,7 +266,7 @@ function showStep(stepId) {
 function init() {
   const sportDiv = document.getElementById('sports');
   Object.keys(data).forEach(sport => {
-    const imgSrc = `images/${imageLabelMap[sport] || sport}.png`;
+    const imgSrc = `images/sports/${imageLabelMap[sport] || sport}.png`;
     const opt = createOption(imgSrc, sport, () => {
       selections.sport = sport;
       showItems(sport);
@@ -279,7 +279,7 @@ function showItems(sport) {
   const itemDiv = document.getElementById('items');
   itemDiv.innerHTML = '';
   Object.keys(data[sport].items).forEach(item => {
-    const imgSrc = `images/${imageLabelMap[sport]}/${imageLabelMap[item] || item}.png`;
+    const imgSrc = `images/items/${imageLabelMap[item] || item}.png`;
     const opt = createOption(imgSrc, item, () => {
       selections.item = item;
       showJerseyTypes(sport, item);
@@ -293,7 +293,7 @@ function showJerseyTypes(sport, item) {
   const typeDiv = document.getElementById('jerseyTypes');
   typeDiv.innerHTML = '';
   data[sport].items[item].forEach(type => {
-    const imgSrc = `images/${imageLabelMap[sport]}/${imageLabelMap[type] || type}.png`;
+    const imgSrc = `images/styles/${imageLabelMap[type] || type}.png`;
     const opt = createOption(imgSrc, type, () => {
       selections.jerseyType = type;
       if (data[sport].skipStyleSelection?.includes(item)) {
@@ -314,7 +314,7 @@ function showShortsTypes(sport) {
   const shortsDiv = document.getElementById('shortsTypes');
   shortsDiv.innerHTML = '';
   data[sport].shorts.forEach(type => {
-    const imgSrc = `images/${imageLabelMap[sport]}/${imageLabelMap[type] || type}.png`;
+    const imgSrc = `images/styles/${imageLabelMap[type] || type}.png`;
     const opt = createOption(imgSrc, type, () => {
       selections.shortsType = type;
       showStyles(sport, selections.jerseyType);
@@ -328,7 +328,7 @@ function showStyles(sport, jerseyType) {
   const styleDiv = document.getElementById('styles');
   styleDiv.innerHTML = '';
   data[sport].styles[jerseyType].forEach(style => {
-    const imgSrc = `images/${imageLabelMap[sport]}/${imageLabelMap[style] || style}.png`;
+    const imgSrc = `images/styles/${style}.png`;
     const opt = createOption(imgSrc, style, () => {
       selections.style = style;
       showColors(sport, style);
@@ -345,7 +345,7 @@ function showColors(sport, style) {
   colorDiv.innerHTML = '';
   (data[sport].colors[style] || []).forEach(color => {
     const label = `${style}-${color}`;
-    const imgSrc = `images/${imageLabelMap[sport]}/${label}.png`;
+    const imgSrc = `images/colors/${label}.png`;
     const opt = createOption(imgSrc, label, () => {
       selections.color = label;
       showStep('step7');
