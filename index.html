@@ -23,25 +23,29 @@ html, body {
 }
 
 section {
-  display: none;
   opacity: 0;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
   background: transparent;
 }
-
 section.active {
-  display: block;
   opacity: 1;
-  min-height: 150vh; /* 每一個顯示的step頁面，都至少擺150%高，確保背景可直向重複 */
+  transform: translateY(0);
 }
 
 .option {
   display: inline-block;
   margin: 10px;
   vertical-align: top;
-  transition: all 0.3s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 0;
+  transform: translateY(20px);
   width: auto;
   max-width: 240px;
+}
+.option.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .option-img {
@@ -53,13 +57,11 @@ section.active {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
 }
-
 .option-img:hover {
   border: 2px solid #007bff;
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
 }
-
 .option-img:active {
   transform: translateY(-5px) scale(0.95);
 }
@@ -68,11 +70,8 @@ section.active {
   margin-top: 10px;
   padding: 0 8px;
   font-size: 18px;
-  line-height: 1.4;
   color: #fff;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-  word-break: break-word;
-  white-space: normal;
   text-align: center;
 }
 
@@ -340,7 +339,7 @@ const data = {
 
 let selections = { sport: "", item: "", jerseyType: "", shortsType: "", style: "", color: "" };
 
-function createOption(imgSrc, label, callback) {
+function createOption(imgSrc, label, callback, index = 0) {
   const div = document.createElement('div');
   div.className = 'option';
   const img = document.createElement('img');
@@ -353,6 +352,8 @@ function createOption(imgSrc, label, callback) {
   lbl.innerHTML = label;
   div.appendChild(img);
   div.appendChild(lbl);
+  // 加延遲出現動畫
+  setTimeout(() => div.classList.add('show'), index * 100);
   return div;
 }
 
@@ -370,12 +371,12 @@ function showStep(stepId) {
 
 function init() {
   const sportDiv = document.getElementById('sports');
-  Object.keys(data).forEach(sport => {
+  Object.keys(data).forEach((sport, idx) => {
     const imgSrc = `images/sports/${imageLabelMap[sport] || sport}.png`;
     const opt = createOption(imgSrc, sport, () => {
       selections.sport = sport;
       showItems(sport);
-    });
+    }, idx);
     sportDiv.appendChild(opt);
   });
 }
@@ -383,12 +384,12 @@ function init() {
 function showItems(sport) {
   const itemDiv = document.getElementById('items');
   itemDiv.innerHTML = '';
-  Object.keys(data[sport].items).forEach(item => {
+  Object.keys(data[sport].items).forEach((item, idx) => {
     const imgSrc = `images/items/${imageLabelMap[item] || item}.png`;
     const opt = createOption(imgSrc, item, () => {
       selections.item = item;
       showJerseyTypes(sport, item);
-    });
+    }, idx);
     itemDiv.appendChild(opt);
   });
   showStep('step2');
@@ -397,7 +398,7 @@ function showItems(sport) {
 function showJerseyTypes(sport, item) {
   const typeDiv = document.getElementById('jerseyTypes');
   typeDiv.innerHTML = '';
-  data[sport].items[item].forEach(type => {
+  data[sport].items[item].forEach((type, idx) => {
     const imgSrc = `images/styles/${imageLabelMap[type] || type}.png`;
     const opt = createOption(imgSrc, type, () => {
       selections.jerseyType = type;
@@ -406,7 +407,7 @@ function showJerseyTypes(sport, item) {
       } else {
         showStyles(sport, type);
       }
-    });
+    }, idx);
     typeDiv.appendChild(opt);
   });
   showStep('step3');
@@ -415,12 +416,12 @@ function showJerseyTypes(sport, item) {
 function showShortsTypes(sport) {
   const shortsDiv = document.getElementById('shortsTypes');
   shortsDiv.innerHTML = '';
-  data[sport].shorts.forEach(type => {
+  data[sport].shorts.forEach((type, idx) => {
     const imgSrc = `images/styles/${imageLabelMap[type] || type}.png`;
     const opt = createOption(imgSrc, type, () => {
       selections.shortsType = type;
       showStyles(sport, selections.jerseyType);
-    });
+    }, idx);
     shortsDiv.appendChild(opt);
   });
   showStep('step4');
@@ -429,12 +430,12 @@ function showShortsTypes(sport) {
 function showStyles(sport, jerseyType) {
   const styleDiv = document.getElementById('styles');
   styleDiv.innerHTML = '';
-  data[sport].styles[jerseyType].forEach(style => {
+  data[sport].styles[jerseyType].forEach((style, idx) => {
     const imgSrc = `images/styles/${style}.png`;
     const opt = createOption(imgSrc, style, () => {
       selections.style = style;
       showColors(sport, style);
-    });
+    }, idx);
     styleDiv.appendChild(opt);
   });
   showStep('step5');
@@ -443,13 +444,13 @@ function showStyles(sport, jerseyType) {
 function showColors(sport, style) {
   const colorDiv = document.getElementById('colors');
   colorDiv.innerHTML = '';
-  (data[sport].colors[style] || []).forEach(color => {
+  (data[sport].colors[style] || []).forEach((color, idx) => {
     const label = `${style}-${color}`;
     const imgSrc = `images/colors/${label}.png`;
     const opt = createOption(imgSrc, label, () => {
       selections.color = label;
       showStep('step7');
-    });
+    }, idx);
     colorDiv.appendChild(opt);
   });
   showStep('step6');
