@@ -181,26 +181,37 @@ h2, h3 {
 <section id="step2">
   <h3>2. 選擇品項</h3>
   <div class="container" id="items"></div>
+  <button class="back-btn" onclick="showStep('step1')">返回上一步</button>
 </section>
 
 <section id="step3">
   <h3>3. 選擇球衣版型</h3>
   <div class="container" id="jerseyTypes"></div>
+  <button class="back-btn" onclick="showStep('step2')">返回上一步</button>
 </section>
 
 <section id="step4">
   <h3>4. 選擇球褲版型</h3>
   <div class="container" id="shortsTypes"></div>
+  <button class="back-btn" onclick="showStep('step3')">返回上一步</button>
 </section>
 
 <section id="step5">
   <h3>5. 選擇款式</h3>
   <div class="container" id="styles"></div>
+  <button class="back-btn">返回上一步</button> <!-- 這個在JS裡會動態設定 onclick -->
 </section>
 
 <section id="step6">
   <h3>6. 選擇配色</h3>
   <div class="container" id="colors"></div>
+  <button class="back-btn" onclick="showStep('step5')">返回上一步</button>
+</section>
+
+<section id="step7">
+  <h3>7. 填寫訂購資料</h3>
+  <button class="back-btn" onclick="showStep('step6')">返回上一步</button>
+  <button class="submit-btn" onclick="alert('跳轉至Ragic表單')">前往Ragic表單</button>
 </section>
 
 <section id="step7">
