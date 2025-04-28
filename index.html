@@ -433,6 +433,14 @@ function showStyles(sport, jerseyType) {
     }, idx);
     styleDiv.appendChild(opt);
   });
+
+  // 補這段：設定返回上一頁
+  const backBtn = document.querySelector('#step5 .back-btn');
+  if (backBtn) {
+    const backTarget = (sport === '籃球') ? 'step4' : 'step3';
+    backBtn.setAttribute('onclick', `showStep('${backTarget}')`);
+  }
+
   showStep('step5');
 }
 
