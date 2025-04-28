@@ -137,8 +137,19 @@ h2, h3 {
   }
 
   .submit-btn {
-    font-size: 20px;
-    padding: 14px 24px;
+  font-size: 20px;
+  padding: 14px 24px;
+}
+}
+
+/* 另外新增一個手機背景圖片切換 */
+@media (max-width: 768px) {
+  body {
+    background-image: url('images/background/bg-mobile.jpg');
+    background-size: cover;
+    background-repeat: repeat-y;
+    background-position: center top;
+    background-attachment: scroll;
   }
 }
 </style>
