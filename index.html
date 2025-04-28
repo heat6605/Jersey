@@ -152,10 +152,12 @@ h2, h3 {
 
   body {
     background-image: url('images/background/bg-mobile.jpg');
-    background-repeat: repeat;
+    background-repeat: repeat-y;
     background-position: center top;
+    background-size: auto; /* 保持原圖尺寸 */
     background-attachment: scroll;
     background-color: transparent;
+    min-height: 5000px; /* 👈 新加這行，強制身體超高，保證背景直向重複！ */
   }
 }
 </style>
