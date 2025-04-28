@@ -403,18 +403,26 @@ function showJerseyTypes(sport, item) {
     return;
   }
   
-  data[sport].items[item].forEach((type, idx) => {
-    const imgSrc = `images/styles/${imageLabelMap[type] || type}.png`;
-    const opt = createOption(imgSrc, type, () => {
-      selections.jerseyType = type;
-      if (sport === '籃球') {
-        showShortsTypes(sport);
-      } else {
-        showStyles(sport, type);
-      }
-    }, idx);
-    typeDiv.appendChild(opt);
-  });
+  data[sport].items[item]
+    .filter(type => {
+      // 🔥 新增這段：如果是羽球，就排除拉克蘭袖
+      if (sport === "羽球" && type === "拉克蘭袖") return false;
+      return true;
+    })
+    
+    .forEach((type, idx) => {
+      const imgSrc = `images/styles/${imageLabelMap[type] || type}.png`;
+      const opt = createOption(imgSrc, type, () => {
+        selections.jerseyType = type;
+        if (sport === '籃球') {
+          showShortsTypes(sport);
+        } else {
+          showStyles(sport, type);
+        }
+      }, idx);
+      typeDiv.appendChild(opt);
+    });
+
   showStep('step3');
 }
 
