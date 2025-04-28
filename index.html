@@ -369,6 +369,26 @@ function showStep(stepId) {
   });
 }
 
+function init() {
+  const sportDiv = document.getElementById('sports');
+  Object.keys(data).forEach(sport => {
+    const imgSrc = `images/sports/${imageLabelMap[sport] || sport}.png`;
+    const opt = createOption(imgSrc, sport, () => {
+      selections.sport = sport;
+      showItems(sport);
+    });
+    sportDiv.appendChild(opt);
+  });
+
+  document.querySelectorAll('section').forEach(section => {
+    if (!section.classList.contains('active')) {
+      section.style.display = 'none';
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(20px)';
+    }
+  });
+}
+
   setTimeout(() => {
     target.style.display = 'block';
     target.classList.add('active');
