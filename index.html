@@ -367,13 +367,6 @@ function showStep(stepId) {
   if (stepId === 'step5') document.getElementById('styles').innerHTML = '';
   if (stepId === 'step6') document.getElementById('colors').innerHTML = '';
 
-  if (stepId === 'step1') loadSports();
-  if (stepId === 'step2') loadItems();
-  if (stepId === 'step3') loadJerseyTypes();
-  if (stepId === 'step4') loadShortsTypes();
-  if (stepId === 'step5') loadStyles();
-  if (stepId === 'step6') loadColors();
-
   allSections.forEach(section => {
     section.style.transition = 'opacity 0.6s ease-in-out, transform 0.6s ease-in-out';
     const title = section.querySelector('h3');
