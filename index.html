@@ -145,16 +145,16 @@ h2, h3 {
 /* 另外新增一個手機背景圖片切換 */
 @media (max-width: 768px) {
   html {
-    background-image: none; /* 👈 把html上的桌機背景圖整個清掉！ */
-    background-attachment: scroll; /* 也要重設scroll，避免fixed作用 */
-    background-color: #000; /* 背景底色補黑色 */
+    background-image: none;
+    background-attachment: scroll;
+    background-color: #000;
   }
 
   body {
     background-image: url('images/background/bg-mobile.jpg');
     background-repeat: repeat-y;
     background-position: center top;
-    background-size: auto;
+    background-size: 100% auto;
     background-attachment: scroll;
     background-color: transparent;
   }
