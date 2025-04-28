@@ -7,25 +7,27 @@
 
   <style>
     html, body {
-      height: 100%;
-      min-height: 100vh;
-      font-family: 'Noto Sans TC', sans-serif;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-      background-image: url('images/background/bg-desktop.jpg');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-attachment: fixed;
-      background-blend-mode: overlay;
-    }
+  height: 100%;
+  min-height: 100vh;
+  font-family: 'Noto Sans TC', sans-serif;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  background-image: url('images/background/bg-desktop.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-color: #000; /* 新增，避免blend問題 */
+  background-blend-mode: normal; /* 改正常，避免疊色 */
+}
 
     section {
-      display: none;
-      opacity: 0;
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  background: transparent; /* ✅ 加這行，避免顯示奇怪顏色 */
+}
     section.active {
       display: block;
       opacity: 1;
@@ -102,14 +104,12 @@
 
     @media (max-width: 768px) {
   body {
-    background-image: url('images/background/bg-mobile.jpg');
-    background-color: #000; /* ✅ 改成全黑，不要深灰避免奇怪混色 */
-    background-blend-mode: normal; /* ✅ 不混色 */
+    background-image: url('images/background/bg-mobile-small.jpg'); /* ⚡建議換一張更小圖，只留上面的pattern部分 */
+    background-size: 100% 120px; /* 寬固定，高度固定 */
     background-repeat: repeat-y;
-    background-size: 100% 120px; /* ✅ 寬100%固定，高120px固定 */
     background-position: top center;
-    background-attachment: scroll;
-    min-height: 100vh;
+    background-attachment: scroll; /* 正常滾動 */
+    background-color: #000; /* 保底底色 */
   }
 }
       .option {
