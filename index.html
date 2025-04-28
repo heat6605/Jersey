@@ -343,27 +343,31 @@ function showStep(stepId) {
   allSections.forEach(section => {
     section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     const title = section.querySelector('h3');
-    if (section.classList.contains('active')) {
-      section.style.opacity = '0';
-      section.style.transform = 'translateY(-20px)';
-      if (title) {
-        title.style.opacity = '0';
-        title.style.transform = 'translateY(-10px)';
-      }
+    if (section.id === stepId) {
+      section.style.display = 'block';
       setTimeout(() => {
-        section.classList.remove('active');
-        section.style.display = 'none';
-      }, 500);
+        section.classList.add('active');
+        section.style.opacity = '1';
+        section.style.transform = 'translateY(0)';
+        if (title) {
+          title.style.opacity = '1';
+          title.style.transform = 'translateY(0)';
+        }
+      }, 10);
     } else {
+      section.classList.remove('active');
       section.style.opacity = '0';
       section.style.transform = 'translateY(20px)';
-      section.style.display = 'none';
       if (title) {
         title.style.opacity = '0';
         title.style.transform = 'translateY(10px)';
       }
+      setTimeout(() => {
+        section.style.display = 'none';
+      }, 500);
     }
   });
+}
 
   setTimeout(() => {
     target.style.display = 'block';
