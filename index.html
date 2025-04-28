@@ -104,7 +104,7 @@
       body {
         background-image: url('images/background/bg-mobile.jpg');
         background-size: cover;
-        background-repeat: no-repeat;
+        background-repeat: nrepeat-y;
         background-position: top center;
         background-attachment: scroll;
         padding-bottom: 20px;
@@ -140,7 +140,7 @@
       const body = document.body;
       if (window.innerWidth <= 768) {
         body.style.backgroundImage = "url('images/background/bg-mobile.jpg')";
-        body.style.backgroundAttachment = "scroll";
+        body.style.backgroundAttachment = "fixed";
       } else {
         body.style.backgroundImage = "url('images/background/bg-desktop.jpg')";
         body.style.backgroundAttachment = "fixed";
