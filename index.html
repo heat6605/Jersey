@@ -393,6 +393,15 @@ function showItems(sport) {
 function showJerseyTypes(sport, item) {
   const typeDiv = document.getElementById('jerseyTypes');
   typeDiv.innerHTML = '';
+
+  // 特別處理「練習衣」類
+  if (item === "練習衣+SGB素色排球褲" || item === "練習衣一口價") {
+    selections.jerseyType = "練習衣";
+    selections.style = "T01"; // 直接指定練習衣款式
+    showColors(sport, "T01");
+    return;
+  }
+  
   data[sport].items[item].forEach((type, idx) => {
     const imgSrc = `images/styles/${imageLabelMap[type] || type}.png`;
     const opt = createOption(imgSrc, type, () => {
