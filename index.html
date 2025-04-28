@@ -35,19 +35,21 @@
     }
 
     .option {
-      display: inline-block;
-      margin: 10px;
-      transition: all 0.3s ease;
-    }
+  display: inline-block; /* ✅ 桌機版橫排 */
+  margin: 10px;
+  transition: all 0.3s ease;
+  width: auto; /* ✅ 桌機版寬度由內容決定 */
+  max-width: 240px;
+}
     .option-img {
-      width: 100%;
-      max-width: 240px;
-      height: auto;
-      object-fit: cover;
-      border: 2px solid transparent;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-      transition: all 0.3s ease;
-    }
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  object-fit: cover;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
     .option-img:hover {
       border: 2px solid #007bff;
       transform: translateY(-5px);
@@ -103,13 +105,15 @@
     }
 
     @media (max-width: 768px) {
-  body {
-    background-image: url('images/background/bg-mobile-small.jpg'); /* ⚡建議換一張更小圖，只留上面的pattern部分 */
-    background-size: 100% 120px; /* 寬固定，高度固定 */
-    background-repeat: repeat-y;
-    background-position: top center;
-    background-attachment: scroll; /* 正常滾動 */
-    background-color: #000; /* 保底底色 */
+  .option {
+    display: block; /* ✅ 手機版改直式 */
+    margin: 10px auto;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .option-img {
+    max-width: 200px; /* ✅ 手機版圖片稍微小一點 */
   }
 }
       .option {
