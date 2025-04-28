@@ -52,6 +52,11 @@ section { display: none; margin-top: 20px; }
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
 }
 
+.option-img:active {
+  transform: translateY(-5px) scale(0.95);
+  transition: transform 0.1s ease;
+}
+
 .label {
   margin-top: 6px;
   font-size: 18px;
@@ -129,6 +134,10 @@ h2, h3 {
     font-size: 20px;
     padding: 14px 24px;
   }
+}
+    section {
+  opacity: 1;
+  transition: opacity 0.5s ease;
 }
 </style>
 </head>
@@ -291,8 +300,24 @@ function createOption(imgSrc, label, callback) {
 }
 
 function showStep(stepId) {
-  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-  document.getElementById(stepId).classList.add('active');
+  const allSections = document.querySelectorAll('section');
+  const target = document.getElementById(stepId);
+
+  allSections.forEach(section => {
+    if (section.classList.contains('active')) {
+      section.style.opacity = '0';
+      section.style.transition = 'opacity 0.5s ease';
+
+      setTimeout(() => {
+        section.classList.remove('active');
+        target.classList.add('active');
+        target.style.opacity = '0';
+        setTimeout(() => {
+          target.style.opacity = '1';
+        }, 50);
+      }, 500);
+    }
+  });
 }
 
 function init() {
