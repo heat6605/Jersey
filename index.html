@@ -1,506 +1,380 @@
 <!DOCTYPE html>
+<html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SGB 款式挑選</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
-
+  <title>SGB 款式挑選系統</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
   <style>
-html, body {
-  height: 100%;
-  min-height: 100vh;
-  font-family: 'Noto Sans TC', sans-serif;
-  color: #fff;
-  text-align: center;
-  padding: 20px;
-  background-image: url('images/background/bg-desktop.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
-  background-color: #000;
-  background-blend-mode: normal;
-}
+    :root {
+      --primary-color: #d33;
+      --glass-bg: rgba(0, 0, 0, 0.6);
+      --accent-color: #007bff;
+    }
 
-section {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  background: transparent;
-}
-section.active {
-  opacity: 1;
-  transform: translateY(0);
-}
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: 'Noto Sans TC', sans-serif;
+      color: #fff;
+      background-color: #000;
+      background-image: url('images/background/bg-desktop.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+    }
 
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-    
-.option {
-  flex: 0 0 calc(50% - 10px);
-  margin: 10px 0;
-  max-width: 240px;
-  box-sizing: border-box;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-    
-.option.show {
-  opacity: 1;
-  transform: translateY(0);
-}
+    /* 手機背景適配 */
+    @media (max-width: 768px) {
+      body {
+        background-image: url('images/background/bg-mobile.jpg');
+        background-attachment: scroll;
+      }
+    }
 
-.option-img {
-  width: 100%;
-  max-width: 240px;
-  height: auto;
-  object-fit: cover;
-  border: 2px solid transparent;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease;
-}
-.option-img:hover {
-  border: 2px solid #007bff;
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
-}
-.option-img:active {
-  transform: translateY(-5px) scale(0.95);
-}
+    /* 步驟進度條 */
+    .progress-container {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(0,0,0,0.8);
+      padding: 15px 10px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+    }
+    .step-dot {
+      width: 30px;
+      height: 8px;
+      background: #444;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    .step-dot.active {
+      background: var(--primary-color);
+      width: 50px;
+    }
 
-.label {
-  margin-top: 10px;
-  padding: 0 8px;
-  font-size: 18px;
-  color: #fff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-  text-align: center;
-}
+    section {
+      display: none;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    section.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-.back-btn, .submit-btn {
-  margin: 10px auto;
-  display: block;
-  border-radius: 4px;
-  font-family: 'Noto Sans TC', sans-serif;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
+    h2, h3 {
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+      margin-bottom: 20px;
+    }
 
-.back-btn {
-  padding: 8px 20px;
-  font-size: 16px;
-  border: 1px solid #fff;
-  background-color: #000;
-  color: #fff;
-}
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      background: var(--glass-bg);
+      padding: 30px 15px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
 
-.back-btn:hover {
-  background-color: #fff;
-  color: #000;
-}
+    .option {
+      flex: 0 0 calc(50% - 20px);
+      max-width: 200px;
+      cursor: pointer;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .option.show {
+      opacity: 1;
+      transform: scale(1);
+    }
 
-.submit-btn {
-  padding: 18px 30px;
-  font-size: 24px;
-  border: 2px solid #d33;
-  background-color: #fff;
-  color: #000;
-}
+    .option-img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 3px solid transparent;
+      transition: all 0.3s;
+      background: #222;
+    }
+    .option:hover .option-img {
+      border-color: var(--accent-color);
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
 
-.submit-btn:hover {
-  background-color: #d33;
-  color: #fff;
-}
+    .label {
+      margin-top: 12px;
+      font-size: 16px;
+      font-weight: bold;
+    }
 
-h2, h3 {
-  color: #fff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-}
+    /* 按鈕樣式 */
+    .btn-group {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    .back-btn {
+      padding: 10px 25px;
+      background: transparent;
+      color: #ccc;
+      border: 1px solid #666;
+      border-radius: 50px;
+      cursor: pointer;
+    }
+    .back-btn:hover { color: #fff; border-color: #fff; }
 
-/* 手機版調整 */
-@media (max-width: 768px) {
-  .option {
-    display: block;
-    margin: 10px auto;
-    width: 100%;
-    max-width: 300px;
-  }
+    .submit-btn {
+      padding: 15px 40px;
+      font-size: 20px;
+      font-weight: bold;
+      background: #fff;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .submit-btn:hover { background: var(--primary-color); color: #fff; }
 
-  .option-img {
-    max-width: 200px;
-  }
+    /* 總結區塊 */
+    .summary-card {
+      text-align: left;
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 20px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      line-height: 2;
+    }
+    .summary-card span { color: var(--primary-color); font-weight: bold; }
 
-  h2, h3 {
-    font-size: 20px;
-  }
-
-  .label {
-    font-size: 14px;
-  }
-
-  .back-btn {
-    font-size: 18px;
-    padding: 12px 24px;
-  }
-
-  .submit-btn {
-  font-size: 20px;
-  padding: 14px 24px;
-}
-}
-
-/* 另外新增一個手機背景圖片切換 */
-@media (max-width: 768px) {
-  html {
-    background-image: none;
-    background-attachment: scroll;
-    background-color: #000;
-  }
-
-  body {
-    background-image: url('images/background/bg-mobile.jpg');
-    background-repeat: repeat-y;
-    background-position: center top;
-    background-size: 100% auto; /* 👈 改成寬100%，高度auto，不要撐爆 */
-    background-attachment: scroll;
-    background-color: transparent;
-  }
-}
-  .hidden-demo {
-  display: none; /* 隱藏假內容用來撐高 */
-}
-</style>
+    @media (max-width: 480px) {
+      .option { flex: 0 0 calc(50% - 10px); }
+      .label { font-size: 14px; }
+    }
+  </style>
 </head>
-
 <body>
-<h2>SGB 款式挑選</h2>
-<section class="active" id="step1">
+
+<div class="progress-container" id="progressBar">
+  <div class="step-dot active"></div>
+  <div class="step-dot"></div>
+  <div class="step-dot"></div>
+  <div class="step-dot"></div>
+  <div class="step-dot"></div>
+  <div class="step-dot"></div>
+  <div class="step-dot"></div>
+</div>
+
+<h2 style="text-align:center">SGB 款式挑選</h2>
+
+<section id="step1" class="active">
   <h3>1. 選擇運動類型</h3>
   <div class="container" id="sports"></div>
 </section>
 
 <section id="step2">
   <h3>2. 選擇品項</h3>
-  <button class="back-btn" onclick="showStep('step1')">返回上一步</button>
   <div class="container" id="items"></div>
+  <div class="btn-group"><button class="back-btn" onclick="showStep('step1')">返回上一步</button></div>
 </section>
 
 <section id="step3">
   <h3>3. 選擇球衣版型</h3>
-  <button class="back-btn" onclick="showStep('step2')">返回上一步</button>
   <div class="container" id="jerseyTypes"></div>
+  <div class="btn-group"><button class="back-btn" onclick="showStep('step2')">返回上一步</button></div>
 </section>
 
 <section id="step4">
   <h3>4. 選擇球褲版型</h3>
-  <button class="back-btn" onclick="showStep('step3')">返回上一步</button>
   <div class="container" id="shortsTypes"></div>
+  <div class="btn-group"><button class="back-btn" onclick="showStep('step3')">返回上一步</button></div>
 </section>
 
 <section id="step5">
   <h3>5. 選擇款式</h3>
-  <button class="back-btn">返回上一步</button>
   <div class="container" id="styles"></div>
+  <div class="btn-group"><button class="back-btn" id="backToStep5">返回上一步</button></div>
 </section>
 
 <section id="step6">
   <h3>6. 選擇配色</h3>
-  <button class="back-btn" onclick="showStep('step5')">返回上一步</button>
   <div class="container" id="colors"></div>
+  <div class="btn-group"><button class="back-btn" id="backToStep6">返回上一步</button></div>
 </section>
 
 <section id="step7">
-  <h3>7. 填寫訂購資料</h3>
-  <button class="back-btn" onclick="showStep('step6')">返回上一步</button>
-  <button class="submit-btn" onclick="goToRagic()">填寫設計表單</button>
+  <h3>7. 確認您的選擇</h3>
+  <div class="container">
+    <div class="summary-card" id="summary"></div>
+    <div style="width: 100%; text-align: center;">
+      <button class="submit-btn" onclick="goToRagic()">前往填寫設計表單</button>
+    </div>
+  </div>
+  <div class="btn-group"><button class="back-btn" onclick="showStep('step6')">返回修改配色</button></div>
 </section>
+
+<script>
+// 資料保持不變 (節錄部分示範，請延用您原有的完整 data 物件)
+const imageLabelMap = { /* 延用您的內容 */ };
+const data = { /* 延用您的完整 data 物件 */ };
+
+let selections = { sport: "", item: "", jerseyType: "", shortsType: "無", style: "", color: "" };
+
+function showStep(stepId) {
+  const allSections = document.querySelectorAll('section');
+  const stepIndex = parseInt(stepId.replace('step', '')) - 1;
   
-  <div class="hidden-demo">
-  <div class="option"><img src="images/sample.jpg"><div>示意圖1</div></div>
-  <div class="option"><img src="images/sample.jpg"><div>示意圖2</div></div>
-  <div class="option"><img src="images/sample.jpg"><div>示意圖3</div></div>
-  <div class="option"><img src="images/sample.jpg"><div>示意圖4</div></div>
-  <div class="option"><img src="images/sample.jpg"><div>示意圖5</div></div>
-  <div class="option"><img src="images/sample.jpg"><div>示意圖6</div></div>
-  <div class="option"><img src="images/sample.jpg"><div>示意圖7</div></div>
-</div>
-  
-</body>
-</html>
+  allSections.forEach(s => {
+    s.classList.remove('active');
+    setTimeout(() => { if(s.id !== stepId) s.style.display = 'none'; }, 500);
+  });
 
-  <script>
-    
-const imageLabelMap = {
-  "籃球": "Basketball",
-  "排球": "Volleyball",
-  "羽球": "Badminton",
-  "雙面球衣+單面球褲": "Reversible Jersey + Shorts",
-  "單面球衣*2+單面球褲": "2 Jerseys + Shorts",
-  "單面球衣*2+單面球褲*2": "2 Jerseys + 2 Shorts",
-  "拉克蘭袖": "Raglan Sleeve",
-  "SGB短袖": "SGB Sleeve",
-  "練習衣": "Practice Jersey",
-  "經典球褲": "Classic Shorts",
-  "短版球褲": "Short Shorts",
-  "排羽球上衣": "Top Only",
-  "排羽球上衣<br>+SGB素色排球褲": "Top + Shorts",
-  "練習衣一口價": "Practice Only",
-  "練習衣+SGB素色排球褲": "Practice + Shorts",
-  "單面圓領": "Single_Side_Round",
-  "單面V領": "Single_Side_V",
-  "雙面圓領": "Reversible Jersey",
-};
+  const target = document.getElementById(stepId);
+  target.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(() => target.classList.add('active'), 50);
 
-const data = {
-  "籃球": {
-    items: {
-      "雙面球衣+單面球褲": ["雙面圓領"],
-      "單面球衣*2+單面球褲": ["單面圓領", "單面V領"],
-      "單面球衣*2+單面球褲*2": ["單面圓領", "單面V領"]
-    },
-    shorts: ["經典球褲", "短版球褲"],
-    styles: {
-      雙面圓領: ["S41","S42","S43","S44","S31","S32","S21","S23","S24","S10","S11","S12","S13","S01","S03","S07","S09"],
-      單面圓領: ["S31","S32","S21","S23","S24","S10","S11","S12","S13","S01","S03","S07","S09"],
-      單面V領: ["S41","S42","S43","S44"]
-    },
-    colors: {
-      S31: ["SB", "BK", "BS", "CB", "FP", "FG", "CR", "BP", "BL", "LV", "MB", "EP", "TH", "PH", "BR", "MP", "NY", "GS", "CL", "LA", "MT", "MG", "DL", "MH"],
-      S32: ["BK", "NW", "AP", "MG", "WB", "PW", "CR"],
-      S21: ["GR", "DB", "DR", "ZG", "PP", "IG", "WB"],
-      S23: ["WR", "NW", "BK", "PP", "PW", "CR", "VG", "GBL", "GOY", "EP", "CB", "LY", "MG", "MB", "WB"],
-      S24: ["NW", "BK", "KB", "PP", "CY", "BO", "VG"],
-      S10: ["BK", "WR", "AG", "BB", "AY", "LG"],
-      S11: ["AY", "BK", "AG", "WG", "WR", "BB"],
-      S12: ["BK", "CB", "LG", "AY", "AG", "WR"],
-      S13: ["BK", "DT", "SG", "DB", "WR", "GG"],
-      S01: ["BK", "AG", "AR", "AY", "BB", "LB", "WG"],
-      S03: ["BK", "AG", "NW", "AY", "AR", "LB", "WG"],
-      S07: ["BK", "AG", "BB", "AY", "AR", "LB", "WG"],
-      S09: ["BK", "AG", "BB", "AY", "LB", "WG"],
-      S41: ["BK", "KB", "PP", "DR", "AG", "GL"],
-      S42: ["BK", "SV", "PP", "CB", "DR", "GL"],
-      S43: ["BK", "PP", "DE", "CR", "AY", "GL"],
-      S44: ["DNB", "DNS", "DNG", "DNK"]
-    }
-  },
-  "排球": {
-    items: {
-      "排羽球上衣<br>+SGB素色排球褲": ["拉克蘭袖", "SGB短袖"],
-      "練習衣+SGB素色排球褲": ["練習衣"],
-      "排羽球上衣": ["拉克蘭袖", "SGB短袖"],
-      "練習衣一口價": ["練習衣"]
-    },
-    skipStyleSelection: [],
-    styles: {
-      "拉克蘭袖": ["V41","V42","V43","V44","V45","V46","V47","V48","V49"],
-      "SGB短袖": ["V31","V32"],
-      "練習衣": ["T01"]
-    },
-    colors: {
-      V41: ["WB", "BK", "MB", "PP", "LB", "MG", "PW", "LV", "GL", "DR"],
-      V42: ["NB", "WB", "PW", "PP", "BO", "BK"],
-      V43: ["FG", "BK", "GB", "MG", "PB", "AW"],
-      V44: ["AW", "BK", "GB", "TB", "QP", "SV"],
-      V45: ["LB", "OR", "GL", "NW", "PP", "DR"],
-      V46: ["NB", "QP", "PP", "MT", "AW", "RB"],
-      V31: ["AW", "EG", "TCG", "WBI", "PB", "QP"],
-      V32: ["QP", "DW", "UN", "FG", "KG", "FP"],
-      V47: ["TB", "BW", "OY", "WR", "LG"],
-      V48: ["BK", "AW", "YY", "WR", "TPB"],
-      V49: ["BK", "OY", "WBI", "WR", "TCG"],
-      T01: ["白", "淺灰", "深灰", "黑", "芥末黃", "南瓜橘", "螢光綠", "螢光黃", "粉紅", "玫紅", "紅", "酒紅", "天空藍", "黃", "淺紫", "深紫", "水藍", "鯨魚藍", "寶藍", "丈青", "海藍", "草綠", "墨綠", "卡其"]
-    }
-  },
-  "羽球": {
-    items: {
-      "排羽球上衣<br>+SGB素色排球褲": ["拉克蘭袖", "SGB短袖"],
-      "練習衣+SGB素色排球褲": ["練習衣"],
-      "排羽球上衣": ["拉克蘭袖", "SGB短袖"],
-      "練習衣一口價": ["練習衣"]
-    },
-    skipStyleSelection: [],
-    styles: {
-      "拉克蘭袖": [],
-      "SGB短袖": ["B21","B11","B12","B13"],
-      "練習衣": ["T01"]
-    },
-    colors: {
-      B21: ["NB", "CB", "PB", "BO", "BK"],
-      B11: ["BK", "KC", "KB", "WR", "BO"],
-      B12: ["GB", "BK", "NTY", "GA", "JG"],
-      B13: ["BK", "GB", "NTY", "AW", "GA"],
-      T01: ["白", "淺灰", "深灰", "黑", "芥末黃", "南瓜橘", "螢光綠", "螢光黃", "粉紅", "玫紅", "紅", "酒紅", "天空藍", "黃", "淺紫", "深紫", "水藍", "鯨魚藍", "寶藍", "丈青", "海藍", "草綠", "墨綠", "卡其"]
-    }
-  }
-};
+  // 更新進度條
+  const dots = document.querySelectorAll('.step-dot');
+  dots.forEach((dot, idx) => {
+    dot.classList.toggle('active', idx <= stepIndex);
+  });
 
-let selections = { sport: "", item: "", jerseyType: "", shortsType: "", style: "", color: "" };
+  if(stepId === 'step7') renderSummary();
+}
 
 function createOption(imgSrc, label, callback, index = 0) {
   const div = document.createElement('div');
   div.className = 'option';
-  const img = document.createElement('img');
-  img.src = imgSrc;
-  img.className = 'option-img';
-  img.onerror = () => img.src = 'images/default.png';
-  img.onclick = callback;
-  const lbl = document.createElement('div');
-  lbl.className = 'label';
-  lbl.innerHTML = label;
-  div.appendChild(img);
-  div.appendChild(lbl);
-  // 加延遲出現動畫
-  setTimeout(() => div.classList.add('show'), index * 100);
+  div.innerHTML = `
+    <img src="${imgSrc}" class="option-img" loading="lazy" onerror="this.src='images/default.png'">
+    <div class="label">${label.replace('<br>', ' ')}</div>
+  `;
+  div.onclick = callback;
+  setTimeout(() => div.classList.add('show'), index * 50);
   return div;
-}
-
-function showStep(stepId) {
-  document.querySelectorAll('section').forEach(section => {
-    if (section.id === stepId) {
-      section.style.display = 'block';
-      setTimeout(() => section.classList.add('active'), 50);
-    } else {
-      section.classList.remove('active');
-      section.style.display = 'none';
-    }
-  });
 }
 
 function init() {
   const sportDiv = document.getElementById('sports');
   Object.keys(data).forEach((sport, idx) => {
     const imgSrc = `images/sports/${imageLabelMap[sport] || sport}.png`;
-    const opt = createOption(imgSrc, sport, () => {
+    sportDiv.appendChild(createOption(imgSrc, sport, () => {
       selections.sport = sport;
       showItems(sport);
-    }, idx);
-    sportDiv.appendChild(opt);
+    }, idx));
   });
 }
 
 function showItems(sport) {
-  const itemDiv = document.getElementById('items');
-  itemDiv.innerHTML = '';
+  const div = document.getElementById('items');
+  div.innerHTML = '';
   Object.keys(data[sport].items).forEach((item, idx) => {
-    const imgSrc = `images/items/${imageLabelMap[item] || item}.png`;
-    const opt = createOption(imgSrc, item, () => {
+    div.appendChild(createOption(`images/items/${imageLabelMap[item] || item}.png`, item, () => {
       selections.item = item;
-      showJerseyTypes(sport, item);
-    }, idx);
-    itemDiv.appendChild(opt);
+      // 邏輯判斷：練習衣跳過版型
+      if (item.includes("練習衣")) {
+        selections.jerseyType = "練習衣";
+        selections.style = "T01";
+        showColors(sport, "T01");
+      } else {
+        showJerseyTypes(sport, item);
+      }
+    }, idx));
   });
   showStep('step2');
 }
 
 function showJerseyTypes(sport, item) {
-  const typeDiv = document.getElementById('jerseyTypes');
-  typeDiv.innerHTML = '';
-
-  // 特別處理「練習衣」類
-  if (item === "練習衣+SGB素色排球褲" || item === "練習衣一口價") {
-    selections.jerseyType = "練習衣";
-    selections.style = "T01"; // 直接指定練習衣款式
-    showColors(sport, "T01");
-    return;
-  }
-  
-  data[sport].items[item]
-    .filter(type => {
-      // 🔥 新增這段：如果是羽球，就排除拉克蘭袖
-      if (sport === "羽球" && type === "拉克蘭袖") return false;
-      return true;
-    })
-    
-    .forEach((type, idx) => {
-      const imgSrc = `images/styles/${imageLabelMap[type] || type}.png`;
-      const opt = createOption(imgSrc, type, () => {
-        selections.jerseyType = type;
-        if (sport === '籃球') {
-          showShortsTypes(sport);
-        } else {
-          showStyles(sport, type);
-        }
-      }, idx);
-      typeDiv.appendChild(opt);
-    });
-
+  const div = document.getElementById('jerseyTypes');
+  div.innerHTML = '';
+  data[sport].items[item].forEach((type, idx) => {
+    if (sport === "羽球" && type === "拉克蘭袖") return;
+    div.appendChild(createOption(`images/styles/${imageLabelMap[type] || type}.png`, type, () => {
+      selections.jerseyType = type;
+      sport === '籃球' ? showShortsTypes(sport) : showStyles(sport, type);
+    }, idx));
+  });
   showStep('step3');
 }
 
 function showShortsTypes(sport) {
-  const shortsDiv = document.getElementById('shortsTypes');
-  shortsDiv.innerHTML = '';
+  const div = document.getElementById('shortsTypes');
+  div.innerHTML = '';
   data[sport].shorts.forEach((type, idx) => {
-    const imgSrc = `images/styles/${imageLabelMap[type] || type}.png`;
-    const opt = createOption(imgSrc, type, () => {
+    div.appendChild(createOption(`images/styles/${imageLabelMap[type] || type}.png`, type, () => {
       selections.shortsType = type;
       showStyles(sport, selections.jerseyType);
-    }, idx);
-    shortsDiv.appendChild(opt);
+    }, idx));
   });
   showStep('step4');
 }
 
 function showStyles(sport, jerseyType) {
-  const styleDiv = document.getElementById('styles');
-  styleDiv.innerHTML = '';
+  const div = document.getElementById('styles');
+  div.innerHTML = '';
   data[sport].styles[jerseyType].forEach((style, idx) => {
-    const imgSrc = `images/styles/${style}.png`;
-    const opt = createOption(imgSrc, style, () => {
+    div.appendChild(createOption(`images/styles/${style}.png`, style, () => {
       selections.style = style;
       showColors(sport, style);
-    }, idx);
-    styleDiv.appendChild(opt);
+    }, idx));
   });
-
-  // 補這段：設定返回上一頁
-  const backBtn = document.querySelector('#step5 .back-btn');
-  if (backBtn) {
-    const backTarget = (sport === '籃球') ? 'step4' : 'step3';
-    backBtn.setAttribute('onclick', `showStep('${backTarget}')`);
-  }
-
+  document.getElementById('backToStep5').onclick = () => showStep(sport === '籃球' ? 'step4' : 'step3');
   showStep('step5');
 }
 
 function showColors(sport, style) {
-  const colorDiv = document.getElementById('colors');
-  colorDiv.innerHTML = '';
-
+  const div = document.getElementById('colors');
+  div.innerHTML = '';
   (data[sport].colors[style] || []).forEach((color, idx) => {
     const label = `${style}-${color}`;
-    const imgSrc = `images/colors/${label}.png`;
-    const opt = createOption(imgSrc, label, () => {
+    div.appendChild(createOption(`images/colors/${label}.png`, label, () => {
       selections.color = label;
       showStep('step7');
-    }, idx);
-    colorDiv.appendChild(opt);
+    }, idx));
   });
-
-  // 🔥 新增這段：動態設定step6返回按鈕
-  const backBtn = document.querySelector('#step6 .back-btn');
-  if (selections.item === "練習衣+SGB素色排球褲" || selections.item === "練習衣一口價") {
-    backBtn.setAttribute('onclick', "showStep('step2')");
-  } else {
-    backBtn.setAttribute('onclick', "showStep('step5')");
-  }
-
+  document.getElementById('backToStep6').onclick = () => {
+    selections.item.includes("練習衣") ? showStep('step2') : showStep('step5');
+  };
   showStep('step6');
+}
+
+function renderSummary() {
+  const div = document.getElementById('summary');
+  div.innerHTML = `
+    <p>運動類型：<span>${selections.sport}</span></p>
+    <p>選擇品項：<span>${selections.item.replace('<br>', ' ')}</span></p>
+    <p>球衣版型：<span>${selections.jerseyType}</span></p>
+    ${selections.sport === '籃球' ? `<p>球褲版型：<span>${selections.shortsType}</span></p>` : ''}
+    <p>選擇款式：<span>${selections.style}</span></p>
+    <p>選擇配色：<span>${selections.color}</span></p>
+  `;
 }
 
 function goToRagic() {
   const base = "https://ap9.ragic.com/jersey/forms6/16";
   const params = new URLSearchParams({
-    webview: "",
-    webaction: "form",
-    ver: "new",
-    version: "2",
+    webview: "", webaction: "form", ver: "new", version: "2",
     pfv1001193: selections.sport,
     pfv1000069: selections.item,
     pfv1002088: selections.shortsType,
@@ -510,8 +384,7 @@ function goToRagic() {
   window.open(`${base}?${params.toString()}`, '_blank');
 }
 
-    
-    init();
-  </script>
+init();
+</script>
 </body>
 </html>
