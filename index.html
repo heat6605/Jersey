@@ -13,176 +13,76 @@
     }
 
     html, body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
+      margin: 0; padding: 0; min-height: 100vh;
       font-family: 'Noto Sans TC', sans-serif;
-      color: #fff;
-      background-color: #000;
+      color: #fff; background-color: #000;
       background-image: url('images/background/bg-desktop.jpg');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-attachment: fixed;
+      background-size: cover; background-repeat: no-repeat;
+      background-position: center; background-attachment: fixed;
     }
 
-    /* 手機背景適配 */
     @media (max-width: 768px) {
-      body {
-        background-image: url('images/background/bg-mobile.jpg');
-        background-attachment: scroll;
-      }
+      body { background-image: url('images/background/bg-mobile.jpg'); background-attachment: scroll; }
     }
 
     /* 步驟進度條 */
     .progress-container {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(0,0,0,0.8);
-      padding: 15px 10px;
-      margin-bottom: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 5px;
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(0,0,0,0.8); padding: 15px 10px;
+      margin-bottom: 20px; display: flex; justify-content: center; gap: 8px;
     }
     .step-dot {
-      width: 30px;
-      height: 8px;
-      background: #444;
-      border-radius: 4px;
-      transition: all 0.3s;
+      width: 25px; height: 6px; background: #444; border-radius: 4px; transition: all 0.3s;
     }
-    .step-dot.active {
-      background: var(--primary-color);
-      width: 50px;
-    }
+    .step-dot.active { background: var(--primary-color); width: 45px; }
 
     section {
-      display: none;
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-      opacity: 0;
-      transform: translateY(20px);
+      display: none; max-width: 1000px; margin: 0 auto; padding: 20px;
+      opacity: 0; transform: translateY(20px);
       transition: opacity 0.5s ease, transform 0.5s ease;
+      text-align: center;
     }
-    section.active {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    h2, h3 {
-      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-      margin-bottom: 20px;
-    }
+    section.active { display: block; opacity: 1; transform: translateY(0); }
 
     .container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      background: var(--glass-bg);
-      padding: 30px 15px;
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;
+      background: var(--glass-bg); padding: 30px 15px;
+      border-radius: 20px; backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.1);
     }
 
     .option {
-      flex: 0 0 calc(50% - 20px);
-      max-width: 200px;
-      cursor: pointer;
-      opacity: 0;
-      transform: scale(0.9);
+      flex: 0 0 calc(50% - 20px); max-width: 200px; cursor: pointer;
+      opacity: 0; transform: scale(0.9);
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .option.show {
-      opacity: 1;
-      transform: scale(1);
-    }
+    .option.show { opacity: 1; transform: scale(1); }
 
     .option-img {
-      width: 100%;
-      aspect-ratio: 1/1;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 3px solid transparent;
-      transition: all 0.3s;
-      background: #222;
+      width: 100%; aspect-ratio: 1/1; object-fit: cover;
+      border-radius: 12px; border: 3px solid transparent;
+      transition: all 0.3s; background: #222;
     }
-    .option:hover .option-img {
-      border-color: var(--accent-color);
-      transform: translateY(-8px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-    }
+    .option:hover .option-img { border-color: var(--accent-color); transform: translateY(-8px); }
 
-    .label {
-      margin-top: 12px;
-      font-size: 16px;
-      font-weight: bold;
-    }
+    .label { margin-top: 12px; font-size: 16px; font-weight: bold; line-height: 1.4; }
 
-    /* 按鈕樣式 */
-    .btn-group {
-      margin-top: 30px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-    .back-btn {
-      padding: 10px 25px;
-      background: transparent;
-      color: #ccc;
-      border: 1px solid #666;
-      border-radius: 50px;
-      cursor: pointer;
-    }
-    .back-btn:hover { color: #fff; border-color: #fff; }
-
-    .submit-btn {
-      padding: 15px 40px;
-      font-size: 20px;
-      font-weight: bold;
-      background: #fff;
-      color: #000;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+    .btn-group { margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+    .back-btn { padding: 10px 25px; background: transparent; color: #ccc; border: 1px solid #666; border-radius: 50px; cursor: pointer; }
+    .submit-btn { padding: 15px 40px; font-size: 20px; font-weight: bold; background: #fff; color: #000; border: none; border-radius: 8px; cursor: pointer; }
     .submit-btn:hover { background: var(--primary-color); color: #fff; }
 
-    /* 總結區塊 */
-    .summary-card {
-      text-align: left;
-      display: inline-block;
-      margin-bottom: 20px;
-      padding: 20px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 10px;
-      line-height: 2;
-    }
-    .summary-card span { color: var(--primary-color); font-weight: bold; }
+    .summary-card { text-align: left; display: inline-block; margin-bottom: 20px; padding: 25px; background: rgba(255,255,255,0.1); border-radius: 10px; line-height: 2; width: 100%; max-width: 400px; box-sizing: border-box; }
+    .summary-card span { color: #ffeb3b; font-weight: bold; }
 
-    @media (max-width: 480px) {
-      .option { flex: 0 0 calc(50% - 10px); }
-      .label { font-size: 14px; }
-    }
+    @media (max-width: 480px) { .option { flex: 0 0 calc(50% - 10px); } }
   </style>
 </head>
 <body>
 
 <div class="progress-container" id="progressBar">
-  <div class="step-dot active"></div>
-  <div class="step-dot"></div>
-  <div class="step-dot"></div>
-  <div class="step-dot"></div>
-  <div class="step-dot"></div>
-  <div class="step-dot"></div>
-  <div class="step-dot"></div>
+  <div class="step-dot active"></div><div class="step-dot"></div><div class="step-dot"></div>
+  <div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div>
 </div>
 
 <h2 style="text-align:center">SGB 款式挑選</h2>
@@ -226,17 +126,65 @@
   <h3>7. 確認您的選擇</h3>
   <div class="container">
     <div class="summary-card" id="summary"></div>
-    <div style="width: 100%; text-align: center;">
-      <button class="submit-btn" onclick="goToRagic()">前往填寫設計表單</button>
-    </div>
+    <div style="width: 100%;"><button class="submit-btn" onclick="goToRagic()">前往填寫設計表單</button></div>
   </div>
-  <div class="btn-group"><button class="back-btn" onclick="showStep('step6')">返回修改配色</button></div>
+  <div class="btn-group"><button class="back-btn" onclick="showStep('step6')">重新挑選配色</button></div>
 </section>
 
 <script>
-// 資料保持不變 (節錄部分示範，請延用您原有的完整 data 物件)
-const imageLabelMap = { /* 延用您的內容 */ };
-const data = { /* 延用您的完整 data 物件 */ };
+const imageLabelMap = {
+  "籃球": "Basketball", "排球": "Volleyball", "羽球": "Badminton",
+  "雙面球衣+單面球褲": "Reversible Jersey + Shorts", "單面球衣*2+單面球褲": "2 Jerseys + Shorts", "單面球衣*2+單面球褲*2": "2 Jerseys + 2 Shorts",
+  "拉克蘭袖": "Raglan Sleeve", "SGB短袖": "SGB Sleeve", "練習衣": "Practice Jersey",
+  "經典球褲": "Classic Shorts", "短版球褲": "Short Shorts", "排羽球上衣": "Top Only",
+  "排羽球上衣<br>+SGB素色排球褲": "Top + Shorts", "練習衣一口價": "Practice Only", "練習衣+SGB素色排球褲": "Practice + Shorts",
+  "單面圓領": "Single_Side_Round", "單面V領": "Single_Side_V", "雙面圓領": "Reversible Jersey",
+};
+
+const data = {
+  "籃球": {
+    items: { "雙面球衣+單面球褲": ["雙面圓領"], "單面球衣*2+單面球褲": ["單面圓領", "單面V領"], "單面球衣*2+單面球褲*2": ["單面圓領", "單面V領"] },
+    shorts: ["經典球褲", "短版球褲"],
+    styles: {
+      "雙面圓領": ["S41","S42","S43","S44","S31","S32","S21","S23","S24","S10","S11","S12","S13","S01","S03","S07","S09"],
+      "單面圓領": ["S31","S32","S21","S23","S24","S10","S11","S12","S13","S01","S03","S07","S09"],
+      "單面V領": ["S41","S42","S43","S44"]
+    },
+    colors: {
+      S31: ["SB", "BK", "BS", "CB", "FP", "FG", "CR", "BP", "BL", "LV", "MB", "EP", "TH", "PH", "BR", "MP", "NY", "GS", "CL", "LA", "MT", "MG", "DL", "MH"],
+      S32: ["BK", "NW", "AP", "MG", "WB", "PW", "CR"], S21: ["GR", "DB", "DR", "ZG", "PP", "IG", "WB"],
+      S23: ["WR", "NW", "BK", "PP", "PW", "CR", "VG", "GBL", "GOY", "EP", "CB", "LY", "MG", "MB", "WB"],
+      S24: ["NW", "BK", "KB", "PP", "CY", "BO", "VG"], S10: ["BK", "WR", "AG", "BB", "AY", "LG"],
+      S11: ["AY", "BK", "AG", "WG", "WR", "BB"], S12: ["BK", "CB", "LG", "AY", "AG", "WR"],
+      S13: ["BK", "DT", "SG", "DB", "WR", "GG"], S01: ["BK", "AG", "AR", "AY", "BB", "LB", "WG"],
+      S03: ["BK", "AG", "NW", "AY", "AR", "LB", "WG"], S07: ["BK", "AG", "BB", "AY", "AR", "LB", "WG"],
+      S09: ["BK", "AG", "BB", "AY", "LB", "WG"], S41: ["BK", "KB", "PP", "DR", "AG", "GL"],
+      S42: ["BK", "SV", "PP", "CB", "DR", "GL"], S43: ["BK", "PP", "DE", "CR", "AY", "GL"],
+      S44: ["DNB", "DNS", "DNG", "DNK"]
+    }
+  },
+  "排球": {
+    items: { "排羽球上衣<br>+SGB素色排球褲": ["拉克蘭袖", "SGB短袖"], "練習衣+SGB素色排球褲": ["練習衣"], "排羽球上衣": ["拉克蘭袖", "SGB短袖"], "練習衣一口價": ["練習衣"] },
+    styles: { "拉克蘭袖": ["V41","V42","V43","V44","V45","V46","V47","V48","V49"], "SGB短袖": ["V31","V32"], "練習衣": ["T01"] },
+    colors: {
+      V41: ["WB", "BK", "MB", "PP", "LB", "MG", "PW", "LV", "GL", "DR"], V42: ["NB", "WB", "PW", "PP", "BO", "BK"],
+      V43: ["FG", "BK", "GB", "MG", "PB", "AW"], V44: ["AW", "BK", "GB", "TB", "QP", "SV"],
+      V45: ["LB", "OR", "GL", "NW", "PP", "DR"], V46: ["NB", "QP", "PP", "MT", "AW", "RB"],
+      V31: ["AW", "EG", "TCG", "WBI", "PB", "QP"], V32: ["QP", "DW", "UN", "FG", "KG", "FP"],
+      V47: ["TB", "BW", "OY", "WR", "LG"], V48: ["BK", "AW", "YY", "WR", "TPB"], V49: ["BK", "OY", "WBI", "WR", "TCG"],
+      T01: ["白", "淺灰", "深灰", "黑", "芥末黃", "南瓜橘", "螢光綠", "螢光黃", "粉紅", "玫紅", "紅", "酒紅", "天空藍", "黃", "淺紫", "深紫", "水藍", "鯨魚藍", "寶藍", "丈青", "海藍", "草綠", "墨綠", "卡其"]
+    }
+  },
+  "羽球": {
+    items: { "排羽球上衣<br>+SGB素色排球褲": ["拉克蘭袖", "SGB短袖"], "練習衣+SGB素色排球褲": ["練習衣"], "排羽球上衣": ["拉克蘭袖", "SGB短袖"], "練習衣一口價": ["練習衣"] },
+    styles: { "拉克蘭袖": [], "SGB短袖": ["B21","B11","B12","B13"], "練習衣": ["T01"] },
+    colors: {
+      B21: ["NB", "CB", "PB", "BO", "BK"], B11: ["BK", "KC", "KB", "WR", "BO"],
+      B12: ["GB", "BK", "NTY", "GA", "JG"], B13: ["BK", "GB", "NTY", "AW", "GA"],
+      T01: ["白", "淺灰", "深灰", "黑", "芥末黃", "南瓜橘", "螢光綠", "螢光黃", "粉紅", "玫紅", "紅", "酒紅", "天空藍", "黃", "淺紫", "深紫", "水藍", "鯨魚藍", "寶藍", "丈青", "海藍", "草綠", "墨綠", "卡其"]
+    }
+  }
+};
 
 let selections = { sport: "", item: "", jerseyType: "", shortsType: "無", style: "", color: "" };
 
@@ -254,11 +202,8 @@ function showStep(stepId) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
   setTimeout(() => target.classList.add('active'), 50);
 
-  // 更新進度條
   const dots = document.querySelectorAll('.step-dot');
-  dots.forEach((dot, idx) => {
-    dot.classList.toggle('active', idx <= stepIndex);
-  });
+  dots.forEach((dot, idx) => { dot.classList.toggle('active', idx <= stepIndex); });
 
   if(stepId === 'step7') renderSummary();
 }
@@ -268,20 +213,18 @@ function createOption(imgSrc, label, callback, index = 0) {
   div.className = 'option';
   div.innerHTML = `
     <img src="${imgSrc}" class="option-img" loading="lazy" onerror="this.src='images/default.png'">
-    <div class="label">${label.replace('<br>', ' ')}</div>
+    <div class="label">${label}</div>
   `;
   div.onclick = callback;
-  setTimeout(() => div.classList.add('show'), index * 50);
+  setTimeout(() => div.classList.add('show'), index * 60);
   return div;
 }
 
 function init() {
   const sportDiv = document.getElementById('sports');
   Object.keys(data).forEach((sport, idx) => {
-    const imgSrc = `images/sports/${imageLabelMap[sport] || sport}.png`;
-    sportDiv.appendChild(createOption(imgSrc, sport, () => {
-      selections.sport = sport;
-      showItems(sport);
+    sportDiv.appendChild(createOption(`images/sports/${imageLabelMap[sport] || sport}.png`, sport, () => {
+      selections.sport = sport; showItems(sport);
     }, idx));
   });
 }
@@ -290,24 +233,18 @@ function showItems(sport) {
   const div = document.getElementById('items');
   div.innerHTML = '';
   Object.keys(data[sport].items).forEach((item, idx) => {
-    div.appendChild(createOption(`images/items/${imageLabelMap[item] || item}.png`, item, () => {
+    div.appendChild(createOption(`images/items/${imageLabelMap[item.replace('<br>', '')] || item.replace('<br>', '')}.png`, item, () => {
       selections.item = item;
-      // 邏輯判斷：練習衣跳過版型
       if (item.includes("練習衣")) {
-        selections.jerseyType = "練習衣";
-        selections.style = "T01";
-        showColors(sport, "T01");
-      } else {
-        showJerseyTypes(sport, item);
-      }
+        selections.jerseyType = "練習衣"; selections.style = "T01"; showColors(sport, "T01");
+      } else { showJerseyTypes(sport, item); }
     }, idx));
   });
   showStep('step2');
 }
 
 function showJerseyTypes(sport, item) {
-  const div = document.getElementById('jerseyTypes');
-  div.innerHTML = '';
+  const div = document.getElementById('jerseyTypes'); div.innerHTML = '';
   data[sport].items[item].forEach((type, idx) => {
     if (sport === "羽球" && type === "拉克蘭袖") return;
     div.appendChild(createOption(`images/styles/${imageLabelMap[type] || type}.png`, type, () => {
@@ -319,24 +256,20 @@ function showJerseyTypes(sport, item) {
 }
 
 function showShortsTypes(sport) {
-  const div = document.getElementById('shortsTypes');
-  div.innerHTML = '';
+  const div = document.getElementById('shortsTypes'); div.innerHTML = '';
   data[sport].shorts.forEach((type, idx) => {
     div.appendChild(createOption(`images/styles/${imageLabelMap[type] || type}.png`, type, () => {
-      selections.shortsType = type;
-      showStyles(sport, selections.jerseyType);
+      selections.shortsType = type; showStyles(sport, selections.jerseyType);
     }, idx));
   });
   showStep('step4');
 }
 
 function showStyles(sport, jerseyType) {
-  const div = document.getElementById('styles');
-  div.innerHTML = '';
+  const div = document.getElementById('styles'); div.innerHTML = '';
   data[sport].styles[jerseyType].forEach((style, idx) => {
     div.appendChild(createOption(`images/styles/${style}.png`, style, () => {
-      selections.style = style;
-      showColors(sport, style);
+      selections.style = style; showColors(sport, style);
     }, idx));
   });
   document.getElementById('backToStep5').onclick = () => showStep(sport === '籃球' ? 'step4' : 'step3');
@@ -344,13 +277,11 @@ function showStyles(sport, jerseyType) {
 }
 
 function showColors(sport, style) {
-  const div = document.getElementById('colors');
-  div.innerHTML = '';
+  const div = document.getElementById('colors'); div.innerHTML = '';
   (data[sport].colors[style] || []).forEach((color, idx) => {
     const label = `${style}-${color}`;
     div.appendChild(createOption(`images/colors/${label}.png`, label, () => {
-      selections.color = label;
-      showStep('step7');
+      selections.color = label; showStep('step7');
     }, idx));
   });
   document.getElementById('backToStep6').onclick = () => {
@@ -360,28 +291,23 @@ function showColors(sport, style) {
 }
 
 function renderSummary() {
-  const div = document.getElementById('summary');
-  div.innerHTML = `
-    <p>運動類型：<span>${selections.sport}</span></p>
-    <p>選擇品項：<span>${selections.item.replace('<br>', ' ')}</span></p>
-    <p>球衣版型：<span>${selections.jerseyType}</span></p>
-    ${selections.sport === '籃球' ? `<p>球褲版型：<span>${selections.shortsType}</span></p>` : ''}
-    <p>選擇款式：<span>${selections.style}</span></p>
-    <p>選擇配色：<span>${selections.color}</span></p>
+  document.getElementById('summary').innerHTML = `
+    <p>🔹 運動類型：<span>${selections.sport}</span></p>
+    <p>🔹 選擇品項：<span>${selections.item.replace('<br>', ' ')}</span></p>
+    <p>🔹 球衣版型：<span>${selections.jerseyType}</span></p>
+    ${selections.sport === '籃球' ? `<p>🔹 球褲版型：<span>${selections.shortsType}</span></p>` : ''}
+    <p>🔹 款式代碼：<span>${selections.style}</span></p>
+    <p>🔹 最終配色：<span>${selections.color}</span></p>
   `;
 }
 
 function goToRagic() {
-  const base = "https://ap9.ragic.com/jersey/forms6/16";
   const params = new URLSearchParams({
     webview: "", webaction: "form", ver: "new", version: "2",
-    pfv1001193: selections.sport,
-    pfv1000069: selections.item,
-    pfv1002088: selections.shortsType,
-    pfv1000071: selections.style,
-    pfv1001153: selections.color
+    pfv1001193: selections.sport, pfv1000069: selections.item,
+    pfv1002088: selections.shortsType, pfv1000071: selections.style, pfv1001153: selections.color
   });
-  window.open(`${base}?${params.toString()}`, '_blank');
+  window.open(`https://ap9.ragic.com/jersey/forms6/16?${params.toString()}`, '_blank');
 }
 
 init();
